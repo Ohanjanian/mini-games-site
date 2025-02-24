@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Գումարում և Հանում</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: none;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .game-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 100px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			width: 500px;
+			height: 300px;
+        }
+
+        h1 {
+            color: #ff6b81;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #ff6b81;
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #ff6b81;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background: #ff4757;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            min-height: 24px;
+        }
+
+        #score {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #stats {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Գումարում և Հանում</h1>
+        <div class="question" id="question"></div>
+        <input type="number" id="answer" placeholder="Մուտքագրեք պատասխանը">
+        <button id="checkButton" onclick="checkAnswer()">Ստուգել</button>
+        <div id="result"></div>
+        <div id="score">Միավորներ: 0</div>
+        <div id="stats">Ճիշտ: 0 | Սխալ: 0</div>
+    </div>
+
+    <!-- Աուդիո ձայնային էֆեկտների համար -->
+    <audio id="correctSound" src="correct.mp3"></audio>
+    <audio id="uncorrectSound" src="uncorrect.mp3"></audio>
+
+    <script>
+        let currentQuestion;
+        let score = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        let difficulty = 'easy'; // Լռելյայն դժվարության մակարդակ
+
+        // Աուդիոէլեմենտներ
+        const correctSound = document.getElementById('correctSound');
+        const uncorrectSound = document.getElementById('uncorrectSound');
+
+        // Դժվարության մակարդակի սահմանում
+        function setDifficulty(level) {
+            difficulty = level;
+            generateQuestion();
+        }
+
+        // Օրինակի ստեղծում
+        function generateQuestion() {
+            let a, b, operation;
+
+            do {
+                if (difficulty === 'easy') {
+                    a = Math.floor(Math.random() * 10) + 1;
+                    b = Math.floor(Math.random() * 10) + 1;
+                    operation = Math.random() > 0.5 ? '+' : '-';
+                } else if (difficulty === 'medium') {
+                    a = Math.floor(Math.random() * 20) + 1;
+                    b = Math.floor(Math.random() * 20) + 1;
+                    operation = Math.random() > 0.5 ? '+' : '-';
+                } else if (difficulty === 'hard') {
+                    a = Math.floor(Math.random() * 50) + 1;
+                    b = Math.floor(Math.random() * 50) + 1;
+                    operation = Math.random() > 0.5 ? '+' : '-';
+                }
+
+                // Ստուգում ենք, որ հանման արդյունքը ոչ բացասական լինի
+            } while (operation === '-' && a < b);
+
+            const question = `${a} ${operation} ${b}`; // Հեռացրել ենք "="
+            const correctAnswer = operation === '+' ? a + b : a - b;
+
+            currentQuestion = { question, correctAnswer };
+            document.getElementById('question').textContent = question;
+            document.getElementById('result').textContent = '';
+            document.getElementById('answer').value = '';
+            document.getElementById('checkButton').disabled = false; // Միացնել կոճակը
+        }
+
+        // Պատասխանի ստուգում
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+
+            // Ստուգում ենք, արդյոք պատասխանը մուտքագրված է
+            if (isNaN(userAnswer)) {
+                document.getElementById('result').textContent = "Մուտքագրեք պատասխանը!";
+                return;
+            }
+
+            const { correctAnswer } = currentQuestion;
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('result').textContent = "Ճիշտ է․․Աբրիկոս! 🎉";
+                score++;
+                correctAnswers++;
+                correctSound.play(); // Ճիշտ պատասխանի ձայն
+            } else {
+                document.getElementById('result').textContent = `Սխալ է: Ճիշտ պատասխանը՝ ${correctAnswer} 😢`;
+                incorrectAnswers++;
+                uncorrectSound.play(); // Սխալ պատասխանի ձայն
+            }
+
+            document.getElementById('score').textContent = `Միավորներ: ${score}`;
+            document.getElementById('stats').textContent = `Ճիշտ: ${correctAnswers} | Սխալ: ${incorrectAnswers}`;
+
+            // Անջատել կոճակը և Enter ստեղնը
+            document.getElementById('checkButton').disabled = true;
+            document.getElementById('answer').disabled = true;
+
+            // Հաջորդ հարցից առաջ դադար
+            setTimeout(() => {
+                generateQuestion();
+                document.getElementById('answer').disabled = false; // Միացնել դաշտը
+                document.getElementById('answer').focus(); // Ֆոկուս դնել դաշտի վրա
+            }, 2000); // 2 վայրկյան դադար
+        }
+
+        // Enter ստեղնի մշակում
+        document.getElementById('answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const userAnswer = document.getElementById('answer').value;
+                // Ստուգում ենք, արդյոք պատասխանը մուտքագրված է
+                if (userAnswer.trim() !== "") {
+                    checkAnswer();
+                } else {
+                    document.getElementById('result').textContent = "Մուտքագրեք պատասխանը!";
+                }
+            }
+        });
+
+        // Ծնող պատուհանից հաղորդագրությունների մշակում
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'setDifficulty') {
+                setDifficulty(event.data.difficulty);
+            }
+        });
+
+        // Խաղի մեկնարկ
+        setDifficulty('easy');
+        generateQuestion();
+    </script>
+</body>
+</html>

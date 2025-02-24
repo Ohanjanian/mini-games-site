@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра 7: Пазл</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .game-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4a90e2;
+        }
+        .puzzle {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 5px;
+            margin: 20px auto;
+        }
+        .puzzle-piece {
+            width: 100px;
+            height: 100px;
+            background: #4a90e2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Игра 7: Пазл</h1>
+        <div class="puzzle" id="puzzle">
+            <div class="puzzle-piece" data-index="0">1</div>
+            <div class="puzzle-piece" data-index="1">2</div>
+            <div class="puzzle-piece" data-index="2">3</div>
+            <div class="puzzle-piece" data-index="3">4</div>
+            <div class="puzzle-piece" data-index="4">5</div>
+            <div class="puzzle-piece" data-index="5">6</div>
+            <div class="puzzle-piece" data-index="6">7</div>
+            <div class="puzzle-piece" data-index="7">8</div>
+            <div class="puzzle-piece" data-index="8"></div>
+        </div>
+        <button onclick="shufflePuzzle()">Перемешать</button>
+    </div>
+
+    <script>
+        const puzzle = document.getElementById('puzzle');
+        const pieces = document.querySelectorAll('.puzzle-piece');
+
+        function shufflePuzzle() {
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, ''];
+            numbers.sort(() => Math.random() - 0.5);
+            pieces.forEach((piece, index) => {
+                piece.textContent = numbers[index];
+            });
+        }
+
+        pieces.forEach(piece => {
+            piece.addEventListener('click', () => {
+                const emptyPiece = document.querySelector('.puzzle-piece:empty');
+                if (isEmptyAdjacent(piece, emptyPiece)) {
+                    swapPieces(piece, emptyPiece);
+                }
+            });
+        });
+
+        function isEmptyAdjacent(piece1, piece2) {
+            const index1 = parseInt(piece1.getAttribute('data-index'));
+            const index2 = parseInt(piece2.getAttribute('data-index'));
+            return Math.abs(index1 - index2) === 1 || Math.abs(index1 - index2) === 3;
+        }
+
+        function swapPieces(piece1, piece2) {
+            const temp = piece1.textContent;
+            piece1.textContent = piece2.textContent;
+            piece2.textContent = temp;
+        }
+
+        shufflePuzzle();
+    </script>
+</body>
+</html>

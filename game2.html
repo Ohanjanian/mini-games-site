@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Խաղ 1: Սովորում ենք տառերը</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: none
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .game-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 100px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			width: 500px;
+			height: 300px;
+        }
+
+        h1 {
+            color: #4a90e2;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .letter {
+            font-size: 120px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .word {
+            font-size: 24px;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #357abd;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Սովորում ենք տառերը</h1>
+        <div class="letter" id="letter"></div>
+        <div class="word" id="word"></div>
+        <button onclick="nextLetter()">Հաջորդ տառը</button>
+    </div>
+
+    <script>
+        // Армянский алфавит (заглавные и строчные буквы)
+        const letters = ['Ա', 'Բ', 'Գ', 'Դ', 'Ե', 'Զ', 'Է', 'Ը', 'Թ', 'Ժ', 'Ի', 'Լ', 'Խ', 'Ծ', 'Կ', 'Հ', 'Ձ', 'Ղ', 'Ճ', 'Մ', 'Յ', 'Ն', 'Շ', 'Ո', 'Չ', 'Պ', 'Ջ', 'Ռ', 'Ս', 'Վ', 'Տ', 'Ր', 'Ց', 'Ւ', 'Փ', 'Ք', 'Օ', 'Ֆ'];
+        const words = {
+            'Ա': 'Արև', 'Բ': 'Բանան', 'Գ': 'Գիրք', 'Դ': 'Դարպաս', 'Ե': 'Երկինք',
+            'Զ': 'Զանգ', 'Է': 'Էլեկտրական', 'Ը': 'Ընկույզ', 'Թ': 'Թռչուն', 'Ժ': 'Ժամացույց',
+            'Ի': 'Իմաստուն', 'Լ': 'Լույս', 'Խ': 'Խնձոր', 'Ծ': 'Ծաղիկ', 'Կ': 'Կատու',
+            'Հ': 'Հայաստան', 'Ձ': 'Ձուկ', 'Ղ': 'Ղեկ', 'Ճ': 'Ճանապարհ', 'Մ': 'Մեքենա',
+            'Յ': 'Յուղ', 'Ն': 'Նավ', 'Շ': 'Շուն', 'Ո': 'Ուսուցիչ', 'Չ': 'Չափ',
+            'Պ': 'Պատուհան', 'Ջ': 'Ջուր', 'Ռ': 'Ռադիո', 'Ս': 'Սեղան', 'Վ': 'Վարունգ',
+            'Տ': 'Տուն', 'Ր': 'Րոպե', 'Ց': 'Ցանկ', 'Ւ': 'Ւղի', 'Փ': 'Փողոց',
+            'Ք': 'Քար', 'Օ': 'Օդանավ', 'Ֆ': 'Ֆուտբոլ'
+        };
+        let remainingLetters = [...letters]; // Оставшиеся буквы
+        let currentLetter;
+        let difficulty = 'easy'; // Уровень сложности по умолчанию
+
+        // Установка уровня сложности
+        function setDifficulty(level) {
+            difficulty = level;
+            remainingLetters = [...letters]; // Сбрасываем оставшиеся буквы
+            nextLetter();
+        }
+
+        // Отображение следующей буквы
+        function nextLetter() {
+            const letterElement = document.getElementById('letter');
+            const wordElement = document.getElementById('word');
+
+            if (remainingLetters.length === 0) {
+                // Если все буквы показаны, начинаем заново
+                remainingLetters = [...letters];
+                letterElement.textContent = "Շնորհավոր! Սկսում ենք նորից!";
+                wordElement.textContent = '';
+                setTimeout(() => {
+                    nextLetter();
+                }, 2000);
+                return;
+            }
+
+            // Выбираем случайную букву из оставшихся
+            const randomIndex = Math.floor(Math.random() * remainingLetters.length);
+            currentLetter = remainingLetters[randomIndex];
+            remainingLetters.splice(randomIndex, 1); // Удаляем букву из оставшихся
+
+            // Показываем букву в зависимости от уровня сложности
+            if (difficulty === 'easy') {
+                letterElement.textContent = currentLetter.toLowerCase();
+                wordElement.textContent = '';
+            } else if (difficulty === 'medium') {
+                letterElement.textContent = currentLetter;
+                wordElement.textContent = '';
+            } else if (difficulty === 'hard') {
+                letterElement.textContent = currentLetter;
+                wordElement.textContent = words[currentLetter]; // Только слово, без префикса
+            }
+        }
+
+        // Обработка сообщений от родительского окна
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'setDifficulty') {
+                setDifficulty(event.data.difficulty);
+            }
+        });
+
+        // Запуск игры
+        setDifficulty('easy');
+        nextLetter();
+    </script>
+</body>
+</html>
