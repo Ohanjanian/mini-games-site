@@ -13,7 +13,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
             background-color: #f0f0f0;
         }
 
@@ -92,7 +92,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative; /* Для позиционирования меню */
         }
 
         .game-area iframe {
@@ -114,86 +113,10 @@
             font-size: 24px;
             font-weight: bold;
         }
-
-        /* Стили для мобильной версии */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .menu {
-                display: none; /* Скрываем меню по умолчанию */
-            }
-
-            .game-area {
-                width: 100%;
-                height: 300px; /* Фиксированная высота для мобильных устройств */
-                margin-bottom: 10px;
-            }
-
-            .mobile-menu-button {
-                display: block; /* Показываем кнопку меню */
-                position: absolute;
-                top: 10px;
-                left: 10px;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 8px 12px;
-                font-size: 14px;
-                cursor: pointer;
-                z-index: 1000;
-            }
-
-            .mobile-menu {
-                display: none; /* Скрываем меню по умолчанию */
-                position: absolute;
-                top: 50px;
-                left: 10px;
-                background-color: #e0e0e0;
-                border-radius: 5px;
-                padding: 10px;
-                z-index: 1000;
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .mobile-menu.active {
-                display: flex; /* Показываем меню при активации */
-            }
-
-            .mobile-menu button {
-                padding: 8px;
-                font-size: 14px;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            .mobile-menu button:hover {
-                background-color: #0056b3;
-            }
-
-            .timer {
-                width: 100%;
-            }
-        }
-
-        /* Скрываем кнопку меню на ПК */
-        @media (min-width: 769px) {
-            .mobile-menu-button {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Основной контейнер -->
         <div class="menu">
             <div class="menu-buttons">
                 <h2>Խաղեր</h2>
@@ -213,33 +136,10 @@
                 <button onclick="setDifficulty('hard')">Դժվար</button>
             </div>
         </div>
-
-        <!-- Игровая область -->
         <div class="game-area">
-            <!-- Кнопка для открытия меню на мобильных устройствах -->
-            <button class="mobile-menu-button" onclick="toggleMobileMenu()">☰ Меню</button>
-
-            <!-- Мобильное меню -->
-            <div class="mobile-menu" id="mobileMenu">
-                <button onclick="loadGame('game1.html')">Учим буквы</button>
-                <button onclick="loadGame('game2.html')">Սովորում ենք տառերը</button>
-                <button onclick="loadGame('game3.html')">Learn the letters</button>
-                <button onclick="loadGame('game4.html')">Գումարում և Հանում</button>
-                <button onclick="loadGame('game5.html')">Բազմապատկում և Բաժանում</button>
-                <button onclick="loadGame('game6.html')">Խնդիրներ</button>
-                <button onclick="loadGame('game7.html')">Пазл</button>
-                <button onclick="loadGame('game8.html')">Рисовалка</button>
-                <button onclick="loadGame('game9.html')">Лабиринт</button>
-                <button onclick="setDifficulty('easy')">Հեշտ</button>
-                <button onclick="setDifficulty('medium')">Միջին</button>
-                <button onclick="setDifficulty('hard')">Դժվար</button>
-            </div>
-
             <h2></h2>
             <iframe id="game-frame" src="about:blank"></iframe>
         </div>
-
-        <!-- Таймер -->
         <div class="timer">
             <h2>Ժամանակ</h2>
             <span id="timer">00:00</span>
@@ -248,24 +148,16 @@
 
     <script>
         const gameFrame = document.getElementById('game-frame');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        // Функция для открытия/закрытия мобильного меню
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('active');
-        }
 
         // Загрузка игры в iframe
         function loadGame(gameUrl) {
             gameFrame.src = gameUrl;
-            mobileMenu.classList.remove('active'); // Скрываем меню после выбора игры
         }
 
         // Установка уровня сложности
         function setDifficulty(difficulty) {
             // Отправляем сообщение в iframe с выбранным уровнем сложности
             gameFrame.contentWindow.postMessage({ type: 'setDifficulty', difficulty }, '*');
-            mobileMenu.classList.remove('active'); // Скрываем меню после выбора сложности
         }
 
         // Таймер
