@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игра 7: Пазл</title>
+    <title>Շաբաթվա օրեր</title>
     <style>
         body, html {
             margin: 0;
@@ -13,100 +13,211 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            background: none;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
+
         .game-container {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 800px;
             background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
-        h1 {
-            color: #4a90e2;
-        }
-        .puzzle {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            gap: 5px;
-            margin: 20px auto;
-        }
-        .puzzle-piece {
-            width: 100px;
-            height: 100px;
-            background: #4a90e2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
+
+        .column {
+            width: 45%;
+            padding: 10px;
+            border: 2px solid #4CAF50;
             border-radius: 10px;
+            text-align: center;
         }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #4a90e2;
+
+        .day {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .day:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .day.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #right-column .day {
+            background-color: #ff9800; /* Оранжевый цвет для дней в правой части */
+        }
+
+        #right-column .day:hover {
+            background-color: #e68900;
+        }
+
+        #result {
+            position: absolute;
+            top: -50px; /* Сообщение сверху */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #result.show {
+            opacity: 1;
+        }
+
+        #reset-button {
+            position: absolute;
+            bottom: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #reset-button.show {
+            opacity: 1;
+        }
+
+        #reset-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <div class="game-container">
-        <h1>Игра 7: Пазл</h1>
-        <div class="puzzle" id="puzzle">
-            <div class="puzzle-piece" data-index="0">1</div>
-            <div class="puzzle-piece" data-index="1">2</div>
-            <div class="puzzle-piece" data-index="2">3</div>
-            <div class="puzzle-piece" data-index="3">4</div>
-            <div class="puzzle-piece" data-index="4">5</div>
-            <div class="puzzle-piece" data-index="5">6</div>
-            <div class="puzzle-piece" data-index="6">7</div>
-            <div class="puzzle-piece" data-index="7">8</div>
-            <div class="puzzle-piece" data-index="8"></div>
+        <!-- Левая колонка с днями недели -->
+        <div class="column" id="left-column">
+            <h2>Շաբաթվա օրեր</h2> <!-- Заголовок на армянском -->
+            <div class="day" data-day="Երկուշաբթի">Երկուշաբթի</div>
+            <div class="day" data-day="Երեքշաբթի">Երեքշաբթի</div>
+            <div class="day" data-day="Չորեքշաբթի">Չորեքշաբթի</div>
+            <div class="day" data-day="Հինգշաբթի">Հինգշաբթի</div>
+            <div class="day" data-day="Ուրբաթ">Ուրբաթ</div>
+            <div class="day" data-day="Շաբաթ">Շաբաթ</div>
+            <div class="day" data-day="Կիրակի">Կիրակի</div>
         </div>
-        <button onclick="shufflePuzzle()">Перемешать</button>
+
+        <!-- Правая колонка для выбранных дней -->
+        <div class="column" id="right-column">
+            <h2>Ընտրված օրեր</h2> <!-- Заголовок на армянском -->
+        </div>
+
+        <!-- Сообщение о результате -->
+        <div id="result"></div>
+
+        <!-- Кнопка "Փորձել կրկին" (Попробовать снова) -->
+        <button id="reset-button" onclick="resetGame()">Փորձել կրկին</button>
     </div>
 
     <script>
-        const puzzle = document.getElementById('puzzle');
-        const pieces = document.querySelectorAll('.puzzle-piece');
+        const leftColumn = document.getElementById('left-column');
+        const rightColumn = document.getElementById('right-column');
+        const resultText = document.getElementById('result');
+        const resetButton = document.getElementById('reset-button');
 
-        function shufflePuzzle() {
-            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, ''];
-            numbers.sort(() => Math.random() - 0.5);
-            pieces.forEach((piece, index) => {
-                piece.textContent = numbers[index];
-            });
-        }
+        // Изначально перемешиваем дни в левой части
+        shuffleDays();
 
-        pieces.forEach(piece => {
-            piece.addEventListener('click', () => {
-                const emptyPiece = document.querySelector('.puzzle-piece:empty');
-                if (isEmptyAdjacent(piece, emptyPiece)) {
-                    swapPieces(piece, emptyPiece);
+        // Обработчик клика на дни недели
+        leftColumn.addEventListener('click', (event) => {
+            if (event.target.classList.contains('day') && !event.target.classList.contains('disabled')) {
+                const day = event.target;
+                day.classList.add('disabled'); // Делаем кнопку неактивной
+                day.style.cursor = 'not-allowed';
+
+                // Создаем копию дня и перемещаем ее в правую колонку
+                const dayCopy = day.cloneNode(true);
+                dayCopy.classList.remove('disabled');
+                dayCopy.style.cursor = 'default';
+                rightColumn.appendChild(dayCopy);
+
+                // Проверяем, все ли дни перемещены
+                if (rightColumn.children.length === 8) { // 7 дней + заголовок
+                    checkOrder();
                 }
-            });
+            }
         });
 
-        function isEmptyAdjacent(piece1, piece2) {
-            const index1 = parseInt(piece1.getAttribute('data-index'));
-            const index2 = parseInt(piece2.getAttribute('data-index'));
-            return Math.abs(index1 - index2) === 1 || Math.abs(index1 - index2) === 3;
+        // Функция проверки порядка
+        function checkOrder() {
+            const days = Array.from(rightColumn.querySelectorAll('.day'));
+            const correctOrder = ['Երկուշաբթի', 'Երեքշաբթի', 'Չորեքշաբթի', 'Հինգշաբթի', 'Ուրբաթ', 'Շաբաթ', 'Կիրակի'];
+            const userOrder = days.map(day => day.getAttribute('data-day'));
+
+            if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
+                showResult('Ճիշտ է! Լավ արեցիր', 'green'); // Сообщение на армянском
+            } else {
+                showResult('Փորձիր կրկին', 'red'); // Сообщение на армянском
+            }
+
+            // Показываем кнопку "Փորձել կրկին"
+            resetButton.classList.add('show');
         }
 
-        function swapPieces(piece1, piece2) {
-            const temp = piece1.textContent;
-            piece1.textContent = piece2.textContent;
-            piece2.textContent = temp;
+        // Функция отображения результата
+        function showResult(message, color) {
+            resultText.innerText = message;
+            resultText.style.color = color;
+            resultText.classList.add('show');
+
+            // Скрываем сообщение через 3 секунды
+            setTimeout(() => {
+                resultText.classList.remove('show');
+            }, 3000);
         }
 
-        shufflePuzzle();
+        // Функция сброса игры
+        function resetGame() {
+            const days = Array.from(rightColumn.querySelectorAll('.day'));
+            days.forEach(day => day.remove()); // Удаляем дни из правой колонки
+
+            // Восстанавливаем кнопки в левой колонке
+            const leftDays = Array.from(leftColumn.querySelectorAll('.day'));
+            leftDays.forEach(day => {
+                day.classList.remove('disabled');
+                day.style.cursor = 'pointer';
+            });
+
+            // Перемешиваем дни в левой части
+            shuffleDays();
+
+            // Скрываем кнопку "Փորձել կրկին"
+            resetButton.classList.remove('show');
+        }
+
+        // Функция перемешивания дней в левой части
+        function shuffleDays() {
+            const days = Array.from(leftColumn.querySelectorAll('.day'));
+            days.sort(() => Math.random() - 0.5);
+            leftColumn.innerHTML = '<h2>Շաբաթվա օրեր</h2>';
+            days.forEach(day => leftColumn.appendChild(day));
+        }
     </script>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Игра 1: Учим буквы!</title>
     <style>
-        body, html {
+         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -23,9 +23,9 @@
             background: rgba(255, 255, 255, 0.9);
             padding: 100px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-			width: 500px;
-			height: 300px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            height: 300px;
         }
 
         h1 {
@@ -42,9 +42,9 @@
         }
 
         .word {
-            font-size: 50px;
+            font-size: 30px;
             margin: 10px 0;
-            color: orange;
+            color: #4a90e2;
         }
 
         button {
@@ -65,10 +65,9 @@
 </head>
 <body>
     <div class="game-container">
-        <h1>Учим буквы!</h1>
         <div class="letter" id="letter"></div>
         <div class="word" id="word"></div>
-        <button onclick="nextLetter()">Следующая буква</button>
+        <button onclick="nextLetter()" aria-label="Следующая буква">Следующая буква</button>
     </div>
 
     <script>

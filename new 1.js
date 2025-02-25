@@ -1,21 +1,25 @@
-// Получаем все выпадающие меню
-const dropdowns = document.querySelectorAll('.dropdown-content a');
+// Получаем все пункты меню
+const dropdownItems = document.querySelectorAll('.dropdown-content a');
 
-// Добавляем обработчик событий для каждого пункта меню
-dropdowns.forEach(item => {
+// Добавляем обработчик клика
+dropdownItems.forEach(item => {
     item.addEventListener('click', function (e) {
-        e.preventDefault(); // Отменяем стандартное поведение ссылки
+        e.preventDefault();
 
         // Получаем выбранный размер
         const size = this.getAttribute('data-size');
 
-        // Находим родительский контейнер (box)
-        const box = this.closest('.box');
+        // Находим контейнер .box
+        const box = document.querySelector('.box');
+        if (!box) {
+            console.error("Элемент .box не найден!");
+            return;
+        }
 
         // Удаляем предыдущие классы размеров
         box.classList.remove('small', 'medium', 'large');
 
-        // Добавляем новый класс в зависимости от выбранного размера
+        // Добавляем новый класс размера
         box.classList.add(size);
     });
 });

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Խաղ 1: Սովորում ենք տառերը</title>
     <style>
-        body, html {
+          body, html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -42,9 +42,9 @@
         }
 
         .word {
-            font-size: 24px;
+            font-size: 30px;
             margin: 10px 0;
-            color: #666;
+            color: #4a90e2;
         }
 
         button {
@@ -68,11 +68,10 @@
         <h1>Սովորում ենք տառերը</h1>
         <div class="letter" id="letter"></div>
         <div class="word" id="word"></div>
-        <button onclick="nextLetter()">Հաջորդ տառը</button>
+        <button onclick="nextLetter()" aria-label="Հաջորդ տառը">Հաջորդ տառը</button>
     </div>
 
     <script>
-        // Армянский алфавит (заглавные и строчные буквы)
         const letters = ['Ա', 'Բ', 'Գ', 'Դ', 'Ե', 'Զ', 'Է', 'Ը', 'Թ', 'Ժ', 'Ի', 'Լ', 'Խ', 'Ծ', 'Կ', 'Հ', 'Ձ', 'Ղ', 'Ճ', 'Մ', 'Յ', 'Ն', 'Շ', 'Ո', 'Չ', 'Պ', 'Ջ', 'Ռ', 'Ս', 'Վ', 'Տ', 'Ր', 'Ց', 'Ւ', 'Փ', 'Ք', 'Օ', 'Ֆ'];
         const words = {
             'Ա': 'Արև', 'Բ': 'Բանան', 'Գ': 'Գիրք', 'Դ': 'Դարպաս', 'Ե': 'Երկինք',
