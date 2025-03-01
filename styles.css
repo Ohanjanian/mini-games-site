@@ -1,146 +1,319 @@
+/* Базовые стили для body */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    background-color: #6699CC;
 }
 
-:root {
-    --bg-color: #f0f0f0;
-    --text-color: #333;
-    --primary-color: #4a90e2;
-    --secondary-color: #357abd;
-}
-
-[data-theme="dark"] {
-    --bg-color: #333;
-    --text-color: #f0f0f0;
-    --primary-color: #6a9bd8;
-    --secondary-color: #4a7bbd;
-}
-
-.mobile-container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-color);
-    position: relative;
-}
-
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: var(--primary-color);
-    color: white;
-    z-index: 100;
-}
-
-.menu-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.title {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.timer {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.menu {
-    display: none;
-    position: absolute;
-    top: 50px;
-    left: 10px;
-    background-color: var(--bg-color);
-    border-radius: 5px;
-    padding: 8px;
-    z-index: 1000;
-    flex-direction: column;
-    gap: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.menu.active {
-    display: flex;
-}
-
-.menu button, .submenu-content button {
-    padding: 10px;
-    font-size: 14px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.menu button:hover, .submenu-content button:hover {
-    background-color: var(--secondary-color);
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.submenu {
-    position: relative;
-}
-
-.submenu-content {
-    display: none;
-    position: absolute;
-    left: 100%;
-    top: 0;
-    background-color: var(--bg-color);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: 8px;
-}
-
-.submenu:hover .submenu-content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.game-area {
-    flex: 1;
-    background-color: #d0d0d0;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative; /* Убедимся, что z-index работает */
-    height: calc(100vh - 50px); /* Учитываем верхнюю панель */
-    overflow: hidden;
-}
-
-.game-area iframe {
-    width: 100%;
-    height: 100%; /* Растягиваем на всю доступную высоту */
-    border: none;
-    position: absolute;
+/* Верхний статус-бар */
+.status-bar.top {
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    width: 100%;
+    height: 50px;
+    background-color: #1560bd;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
-.bottom-bar {
-    position: relative; /* Чтобы не перекрывала игру */
+/* Бургер-иконка */
+.burger-icon {
+    position: absolute;
+    left: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* По умолчанию скрыта */
+}
+
+/* Нижний статус-бар */
+.status-bar.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #1560bd;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Стили для контейнера */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 80px auto; /* Отступы для статус-баров */
+    background-color: none;
+    min-height: 300px;
+}
+
+/* Общие стили для всех блоков */
+.box {
+    background-color: #7CB9E8;
+    border: 0px solid #ccc;
+    border-radius: 21px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    flex: 1;
+}
+
+/* Стили для левого блока (меню) */
+.box.side.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.box.side.menu h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+/* Стили для глянцевых кнопок */
+.glossy-btn {
+    width: 100%; /* Ширина кнопок на всю ширину меню */
+    height: 47px;
+    color: white;
+    border: none;
+    border-radius: 21px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.6),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0px; /* Отступ между кнопками */
+}
+
+.glossy-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+    transform: rotate(45deg);
+    transition: opacity 0.3s ease;
+    opacity: 0.5;
     z-index: 1;
 }
+
+.glossy-btn:hover::after {
+    opacity: 0.8;
+}
+
+.glossy-btn:active::after {
+    opacity: 0.3;
+}
+
+.glossy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.3),
+        inset 0 3px 6px rgba(255, 255, 255, 0.8),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.glossy-btn:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Градиенты для кнопок */
+.btn-color1 { background: linear-gradient(to bottom, #c8fa02, #2bab02); }
+.btn-color2 { background: linear-gradient(to bottom, #00c6ff, #0072ff); }
+.btn-color3 { background: linear-gradient(to bottom, #f857a6, #ff5858); }
+.btn-color4 { background: linear-gradient(to bottom, #43e97b, #1abc9c); }
+.btn-color5 { background: linear-gradient(to bottom, #ffcc00, #ff6f61); }
+.btn-color6 { background: linear-gradient(to bottom, #a18cd1, #6a11cb); }
+.btn-color7 { background: linear-gradient(to bottom, #ff6b6b, #ff3860); }
+.btn-color8 { background: linear-gradient(to bottom, #4cd964, #00e676); }
+.btn-color9 { background: linear-gradient(to bottom, #00b4db, #0096ff); }
+.btn-color10 { background: linear-gradient(to bottom, #ff9a9e, #ff6f61); }
+.btn-color11 { background: linear-gradient(to bottom, #c8fa02, #2bab02); }
+
+/* Стили для центрального блока */
+.box.center {
+    flex: 2;
+    background-color: #7CB9E8;
+}
+
+.box.center img {
+    max-width: 100%; /* Максимальная ширина изображения — 100% от ширины блока */
+    max-height: 100%; /* Максимальная высота изображения — 100% от высоты блока */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    display: block; /* Делаем изображение блочным элементом */
+    margin: 0 auto; /* Выравниваем изображение по центру по горизонтали */
+    border-radius: 21px; /* Закругляем углы, как у блока */
+    object-fit: cover; /* Обрезаем изображение, чтобы оно заполнило квадрат */
+    aspect-ratio: 1 / 1; /* Сохраняем соотношение сторон 1:1 (квадрат) */
+}
+
+
+/* Стили для правого блока */
+.box.side.right-block {
+    flex: 1;
+}
+
+/* Анимация для появления кнопок */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Для экранов меньше 992px */
+@media screen and (max-width: 992px) {
+        .container {
+        max-width: 100%; /* Контейнер занимает всю ширину экрана */
+        padding: 0; /* Убираем отступы */
+        flex-direction: column; /* Блоки становятся вертикальными */
+        min-height: calc(100vh - 100px); /* Учитываем высоту статус-баров */
+        margin: 50px auto; /* Отступы для статус-баров */
+    }
+
+    .box.center {
+        width: 100%; /* Ширина на весь экран */
+        height: auto; /* Высота автоматическая */
+        min-height: 300px; /* Минимальная высота, как у блока 2 */
+        border-radius: 0px; /* Закругляем углы */
+        margin-bottom: 0px; /* Отступ снизу */
+    }
+
+    .box.center iframe {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px; /* Закругляем углы */
+    }
+
+    .burger-icon {
+        display: block; /* Показываем бургер-иконку */
+    }
+
+    .box.side.menu {
+        display: none; /* Скрываем меню */
+    }
+
+    .box.side.menu.active {
+        display: flex; /* Показываем меню при активации */
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+    
+    .box.side.right-block {
+        display: none; /* Скрываем правый блок */
+    }
+
+
+
+
+
+    .glossy-btn {
+        width: 70%; /* Ширина кнопок на всю ширину меню */
+        height: 36px; /* Уменьшаем высоту кнопок */
+        font-size: 12px; /* Уменьшаем размер шрифта */
+        margin-bottom: 2px; /* Уменьшаем отступ между кнопками */
+        display: block; /* Делаем кнопки блочными элементами */
+        margin-left: auto; /* Центрирование по горизонтали */
+        margin-right: auto; /* Центрирование по горизонтали */
+		animation-delay: calc(var(--index) * 0.1s);
+
+    }
+
+    .box.side.menu {
+        gap: 8px; /* Уменьшаем расстояние между кнопками в меню */
+        align-items: center;
+    }
+
+
+:root {
+    --animation-duration-in: 0.5s; /* Длительность анимации появления кнопок */
+    --animation-duration-out: 0.4s; /* Длительность анимации исчезновения кнопок */
+    --animation-delay-in: 0.1s; /* Задержка между кнопками при появлении */
+    --animation-delay-out: 0.05s; /* Задержка между кнопками при исчезновении */
+    --animation-duration-box: 1s; /* Длительность анимации для левого блока */
+}
+
+/* Анимация для открытия кнопок */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Применяем анимацию для появления кнопок */
+.box.side.menu.active .glossy-btn {
+    animation: slideIn var(--animation-duration-in) ease forwards;
+    animation-delay: calc(var(--index) * var(--animation-delay-in));
+    opacity: 0;
+}
+
+/* Анимация для закрытия кнопок */
+@keyframes slideOut {
+	from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+/* Применяем анимацию для исчезновения кнопок */
+.box.side.menu.closing .glossy-btn {
+    animation: slideOut var(--animation-duration-out) ease forwards;
+    animation-delay: calc((var(--total-buttons) - var(--index) - 1) * var(--animation-delay-out));
+    opacity: 100;
+}
+
+/* Скрываем меню после завершения анимации */
+.box.side.menu.closing {
+    animation: slideOutBox var(--animation-duration-box) ease forwards;
+    pointer-events: none; /* Отключаем взаимодействие с меню во время анимации */
+}
+
+@keyframes slideOutBox {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+

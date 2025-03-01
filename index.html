@@ -3,404 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Խաղ</title>
-    <style>
-        /* Общие стили */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-        }
-
-        /* Мобильная версия */
-        .mobile-container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #fff;
-            position: relative; /* Для позиционирования меню */
-        }
-
-        /* Верхняя панель */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            z-index: 100; /* Чтобы панель была поверх других элементов */
-        }
-
-        /* Заголовок "Խաղ" */
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* Кнопка меню */
-        .menu-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        /* Таймер */
-        .timer {
-            font-size: 16px;
-            font-weight: bold;
-            margin-left: auto; /* Перемещаем таймер в правый верхний угол */
-        }
-
-        /* Меню с играми */
-        .menu {
-            display: none; /* Скрыто по умолчанию */
-            position: absolute;
-            top: 50px; /* Отступ от верхней панели */
-            left: 10px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            padding: 8px;
-            z-index: 1000; /* Чтобы меню было поверх других элементов */
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .menu.active {
-            display: flex; /* Показываем меню при активации */
-        }
-
-        .menu button {
-            padding: 6px;
-            font-size: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .menu button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Игровая область */
-        .game-area {
-            flex: 1;
-            background-color: #d0d0d0;
-            padding: 5px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1; /* Чтобы игровая область была под меню */
-        }
-
-        .game-area iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 5px;
-        }
-
-        /* Нижняя панель */
-        .bottom-bar {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            z-index: 100; /* Чтобы панель была поверх других элементов */
-        }
-
-        .bottom-bar button {
-            padding: 6px;
-            font-size: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .bottom-bar button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Стили для ПК */
-        .desktop-container {
-            display: none; /* По умолчанию скрываем десктопную версию */
-            flex-direction: row;
-            justify-content: space-between;
-            width: 90%;
-            height: 80vh;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            gap: 10px; /* Отступы между блоками */
-        }
-
-        /* Меню для ПК */
-        .desktop-menu {
-            width: 20%; /* Ширина блока 1 */
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 70vh; /* Высота блоков */
-        }
-
-        .desktop-menu-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .desktop-menu-buttons button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .desktop-menu-buttons button:hover {
-            background-color: #0056b3;
-        }
-
-        .desktop-bottom-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .desktop-bottom-buttons button {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .desktop-bottom-buttons button:hover {
-            background-color: #218838;
-        }
-
-        /* Игровая область для ПК */
-        .desktop-game-area {
-            width: 50%; /* Ширина блока 2 */
-            background-color: #d0d0d0;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start; /* Заголовок сверху */
-            height: 70vh; /* Высота блоков */
-        }
-
-        .desktop-game-area iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 5px;
-        }
-
-        /* Таймер для ПК */
-        .desktop-timer {
-            width: 20%; /* Ширина блока 3 */
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            height: 70vh; /* Высота блоков */
-        }
-
-        .desktop-timer span {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* Медиа-запросы для переключения между мобильной и десктопной версиями */
-        @media (min-width: 769px) {
-            .mobile-container {
-                display: none; /* Скрываем мобильную версию на ПК */
-            }
-
-            .desktop-container {
-                display: flex; /* Показываем десктопную версию на ПК */
-            }
-        }
-
-        @media (max-width: 768px) {
-            .desktop-container {
-                display: none; /* Скрываем десктопную версию на мобильных устройствах */
-            }
-
-            .mobile-container {
-                display: flex; /* Показываем мобильную версию на мобильных устройствах */
-            }
-        }
-    </style>
+    <title>Центральный блок на весь экран</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Мобильная версия -->
-    <div class="mobile-container">
-        <!-- Верхняя панель -->
-        <div class="top-bar">
-            <!-- Кнопка меню -->
-            <button aria-label="Открыть меню" class="menu-button" onclick="toggleMenu()">☰</button>
-            <!-- Заголовок -->
-            <div class="title" id="game-title">Խաղ</div>
-            <!-- Таймер -->
-            <div class="timer" id="timer">00:00</div>
+    <!-- Верхний статус-бар -->
+    <div class="status-bar top">
+        <!-- Бургер-иконка -->
+        <div class="burger-icon" id="burger-icon">
+            &#9776; <!-- Символ бургер-меню -->
         </div>
-
-        <!-- Меню с играми -->
-        <div class="menu" id="menu">
-            <button onclick="loadGame('game1.html', 'Учим буквы')">Учим буквы</button>
-            <button onclick="loadGame('game2.html', 'Սովորում ենք տառերը')">Սովորում ենք տառերը</button>
-            <button onclick="loadGame('game3.html', 'Learn the letters')">Learn the letters</button>
-            <button onclick="loadGame('game4.html', 'Գումարում և Հանում')">Գումարում և Հանում</button>
-            <button onclick="loadGame('game5.html', 'Բազմապատկում և Բաժանում')">Բազմապատկում և Բաժանում</button>
-            <button onclick="loadGame('game6.html', 'Խնդիրներ')">Խնդիրներ</button>
-            <button onclick="loadGame('game7.html', 'Շաբաթվա օրեր')">Շաբաթվա օրեր</button>
-            <button onclick="loadGame('game8.html', 'Ամիսներ')">Ամիսներ</button>
-            <button onclick="loadGame('game9.html', 'Лабиринт')">Лабиринт</button>
-        </div>
-
-        <!-- Игровая область -->
-        <div class="game-area">
-            <iframe id="game-frame" src="about:blank"></iframe>
-        </div>
-
-        <!-- Нижняя панель -->
-        <div class="bottom-bar">
-            <button onclick="setDifficulty('easy')">Հեշտ</button>
-            <button onclick="setDifficulty('medium')">Միջին</button>
-            <button onclick="setDifficulty('hard')">Դժվար</button>
-        </div>
+        ИГРА
     </div>
 
-    <!-- Версия для ПК -->
-    <div class="desktop-container">
-        <!-- Меню -->
-        <div class="desktop-menu">
-            <div class="desktop-menu-buttons">
-                <h2>Խաղեր</h2>
-                <button onclick="loadGame('game1.html', 'Учим буквы')">Учим буквы</button>
-                <button onclick="loadGame('game2.html', 'Սովորում ենք տառերը')">Սովորում ենք տառերը</button>
-                <button onclick="loadGame('game3.html', 'Learn the letters')">Learn the letters</button>
-                <button onclick="loadGame('game4.html', 'Գումարում և Հանում')">Գումարում և Հանում</button>
-                <button onclick="loadGame('game5.html', 'Բազմապատկում և Բաժանում')">Բազմապատկում և Բաժանում</button>
-                <button onclick="loadGame('game6.html', 'Խնդիրներ')">Խնդիրներ</button>
-                <button onclick="loadGame('game7.html', 'Շաբաթվա օրեր')">Շաբաթվա օրեր</button>
-                <button onclick="loadGame('game8.html', 'Ամիսներ')">Ամիսներ</button>
-                <button onclick="loadGame('game9.html', 'Лабиринт')">Лабиринт</button>
-            </div>
-            <div class="desktop-bottom-buttons">
-                <button onclick="setDifficulty('easy')">Հեշտ</button>
-                <button onclick="setDifficulty('medium')">Միջին</button>
-                <button onclick="setDifficulty('hard')">Դժվար</button>
-            </div>
+    <!-- Контейнер с блоками -->
+    <div class="container">
+        <!-- Левый блок (меню) -->
+        <div class="box side menu" id="menu">
+            <h3>Выбери Игру</h3>
+            <button class="glossy-btn btn-color1">Игра 1: Учим буквы!</button>
+            <button class="glossy-btn btn-color2">Игра 2: Սովորում ենք տառերը</button>
+            <button class="glossy-btn btn-color3">Кнопка 3</button>
+            <button class="glossy-btn btn-color4">Кнопка 4</button>
+            <button class="glossy-btn btn-color5">Кнопка 5</button>
+            <button class="glossy-btn btn-color6">Кнопка 6</button>
+            <button class="glossy-btn btn-color7">Кнопка 7</button>
+            <button class="glossy-btn btn-color8">Кнопка 8</button>
+            <button class="glossy-btn btn-color9">Кнопка 9</button>
+            <button class="glossy-btn btn-color10">Кнопка 10</button>
+            <button class="glossy-btn btn-color11">Кнопка 11</button>
         </div>
 
-        <!-- Игровая область -->
-        <div class="desktop-game-area">
-            <div class="game-title" id="game-title">Выберите игру</div>
-            <iframe id="desktop-game-frame" src="about:blank"></iframe>
-        </div>
+        <!-- Центральный блок -->
+        <div class="box center" id="center-block"></div>
 
-        <!-- Таймер -->
-        <div class="desktop-timer">
-            <h2>Ժամանակ</h2>
-            <span id="desktop-timer">00:00</span>
-        </div>
+        <!-- Правый блок -->
+        <div class="box side right-block">Правый блок</div>
     </div>
 
-    <script>
-        const gameFrame = document.getElementById('game-frame');
-        const desktopGameFrame = document.getElementById('desktop-game-frame');
-        const menu = document.getElementById('menu');
-        const timerElement = document.getElementById('timer');
-        const desktopTimerElement = document.getElementById('desktop-timer');
-        const gameTitle = document.getElementById('game-title');
+    <!-- Нижний статус-бар -->
+    <div class="status-bar bottom">
+        Нижний статус-бар
+    </div>
 
-        // Функция для открытия/закрытия меню
-        function toggleMenu() {
-            menu.classList.toggle('active');
-        }
-
-        // Загрузка игры в iframe
-        function loadGame(gameUrl, gameName) {
-            gameFrame.src = gameUrl;
-            desktopGameFrame.src = gameUrl;
-            menu.classList.remove('active'); // Скрываем меню после выбора игры
-            gameTitle.innerText = gameName; // Обновляем название игры
-            resetTimer(); // Сбрасываем таймер при загрузке новой игры
-        }
-
-        // Установка уровня сложности
-        function setDifficulty(difficulty) {
-            if (gameFrame.src !== 'about:blank') {
-                gameFrame.contentWindow.postMessage({ type: 'setDifficulty', difficulty }, '*');
-            }
-            if (desktopGameFrame.src !== 'about:blank') {
-                desktopGameFrame.contentWindow.postMessage({ type: 'setDifficulty', difficulty }, '*');
-            }
-            menu.classList.remove('active'); // Скрываем меню после выбора сложности
-        }
-
-        // Таймер
-        let seconds = 0;
-        let timerInterval;
-
-        function startTimer() {
-            timerInterval = setInterval(updateTimer, 1000);
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            seconds = 0;
-            timerElement.innerText = '00:00';
-            desktopTimerElement.innerText = '00:00';
-            startTimer();
-        }
-
-        function updateTimer() {
-            seconds++;
-            const minutes = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            const timeString = `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-            timerElement.innerText = timeString;
-            desktopTimerElement.innerText = timeString;
-        }
-
-        startTimer();
-    </script>
+    <!-- Подключаем JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
