@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Գումարում և Հանում</title>
     <style>
+        /* Основные стили */
         body, html {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,11 +22,15 @@
         .game-container {
             text-align: center;
             background: none;
-            padding: 100px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: none;
-			width: 500px;
-			height: 300px;
+            width: 90vh;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         h1 {
@@ -41,6 +46,81 @@
             color: #333;
         }
 
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .glossy-btn {
+            width: 80px;
+            height: 80px;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .glossy-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+            transform: rotate(45deg);
+            transition: opacity 0.3s ease;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .glossy-btn:hover::after {
+            opacity: 0.8;
+        }
+
+        .glossy-btn:active::after {
+            opacity: 0.3;
+        }
+
+        .glossy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.3),
+                inset 0 3px 6px rgba(255, 255, 255, 0.8),
+                inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .glossy-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2),
+                inset 0 1px 3px rgba(255, 255, 255, 0.4),
+                inset 0 -1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Градиенты для кнопок */
+        .btn-color1 { background: linear-gradient(to bottom, #c8fa02, #2bab02); }
+        .btn-color2 { background: linear-gradient(to bottom, #00c6ff, #0072ff); }
+        .btn-color3 { background: linear-gradient(to bottom, #f857a6, #ff5858); }
+        .btn-color4 { background: linear-gradient(to bottom, #43e97b, #1abc9c); }
+        .btn-color5 { background: linear-gradient(to bottom, #ffcc00, #ff6f61); }
+        .btn-color6 { background: linear-gradient(to bottom, #a18cd1, #6a11cb); }
+        .btn-color7 { background: linear-gradient(to bottom, #ff6b6b, #ff3860); }
+        .btn-color8 { background: linear-gradient(to bottom, #4cd964, #00e676); }
+        .btn-color9 { background: linear-gradient(to bottom, #00b4db, #0096ff); }
+        .btn-color0 { background: linear-gradient(to bottom, #ff9a9e, #fad0c4); }
+
         input {
             padding: 10px;
             font-size: 18px;
@@ -53,7 +133,7 @@
             box-sizing: border-box;
         }
 
-        button {
+        #checkButton {
             padding: 10px 20px;
             font-size: 18px;
             background: #ff6b81;
@@ -61,16 +141,16 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            display: block;
             width: 100%;
             box-sizing: border-box;
+            margin-bottom: 20px; /* Добавлен отступ снизу */
         }
 
-        button:hover {
+        #checkButton:hover {
             background: #ff4757;
         }
 
-        button:disabled {
+        #checkButton:disabled {
             background: #ccc;
             cursor: not-allowed;
         }
@@ -96,20 +176,84 @@
             color: #666;
             min-height: 24px;
         }
+
+        /* Адаптация для экранов меньше 992px */
+        @media screen and (max-width: 992px) {
+            body, html {
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .game-container {
+                width: 90vw;
+                height: 90vh;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .question {
+                font-size: 36px;
+                margin: 10px 0;
+            }
+
+            .button-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 5px;
+            }
+
+            .glossy-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
+
+            input {
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            #checkButton {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            #result, #score, #stats {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="game-container">
         <h1>Գումարում և Հանում</h1>
         <div class="question" id="question"></div>
-        <input type="number" id="answer" placeholder="Մուտքագրեք պատասխանը">
+        <input type="text" id="answer" placeholder="Մուտքագրեք պատասխանը" readonly>
         <button id="checkButton" onclick="checkAnswer()">Ստուգել</button>
+
+        <!-- Кнопки цифр теперь под кнопкой "Проверить" -->
+        <div class="button-grid">
+            <button class="glossy-btn btn-color1" onclick="addToAnswer('1')">1</button>
+            <button class="glossy-btn btn-color2" onclick="addToAnswer('2')">2</button>
+            <button class="glossy-btn btn-color3" onclick="addToAnswer('3')">3</button>
+            <button class="glossy-btn btn-color4" onclick="addToAnswer('4')">4</button>
+            <button class="glossy-btn btn-color5" onclick="addToAnswer('5')">5</button>
+            <button class="glossy-btn btn-color6" onclick="addToAnswer('6')">6</button>
+            <button class="glossy-btn btn-color7" onclick="addToAnswer('7')">7</button>
+            <button class="glossy-btn btn-color8" onclick="addToAnswer('8')">8</button>
+            <button class="glossy-btn btn-color9" onclick="addToAnswer('9')">9</button>
+            <button class="glossy-btn btn-color0" onclick="addToAnswer('0')">0</button>
+        </div>
+
         <div id="result"></div>
         <div id="score">Միավորներ: 0</div>
         <div id="stats">Ճիշտ: 0 | Սխալ: 0</div>
     </div>
 
-    <!-- Աուդիո ձայնային էֆեկտների համար -->
+    <!-- Аудио для звуковых эффектов -->
     <audio id="correctSound" src="correct.mp3"></audio>
     <audio id="uncorrectSound" src="uncorrect.mp3"></audio>
 
@@ -118,19 +262,19 @@
         let score = 0;
         let correctAnswers = 0;
         let incorrectAnswers = 0;
-        let difficulty = 'easy'; // Լռելյայն դժվարության մակարդակ
+        let difficulty = 'easy'; // По умолчанию легкий уровень сложности
 
-        // Աուդիոէլեմենտներ
+        // Аудио элементы
         const correctSound = document.getElementById('correctSound');
         const uncorrectSound = document.getElementById('uncorrectSound');
 
-        // Դժվարության մակարդակի սահմանում
+        // Установка уровня сложности
         function setDifficulty(level) {
             difficulty = level;
             generateQuestion();
         }
 
-        // Օրինակի ստեղծում
+        // Генерация вопроса
         function generateQuestion() {
             let a, b, operation;
 
@@ -148,25 +292,28 @@
                     b = Math.floor(Math.random() * 50) + 1;
                     operation = Math.random() > 0.5 ? '+' : '-';
                 }
-
-                // Ստուգում ենք, որ հանման արդյունքը ոչ բացասական լինի
             } while (operation === '-' && a < b);
 
-            const question = `${a} ${operation} ${b}`; // Հեռացրել ենք "="
+            const question = `${a} ${operation} ${b}`;
             const correctAnswer = operation === '+' ? a + b : a - b;
 
             currentQuestion = { question, correctAnswer };
             document.getElementById('question').textContent = question;
             document.getElementById('result').textContent = '';
             document.getElementById('answer').value = '';
-            document.getElementById('checkButton').disabled = false; // Միացնել կոճակը
+            document.getElementById('checkButton').disabled = false;
         }
 
-        // Պատասխանի ստուգում
+        // Добавление цифры в поле ответа
+        function addToAnswer(digit) {
+            const answerField = document.getElementById('answer');
+            answerField.value += digit;
+        }
+
+        // Проверка ответа
         function checkAnswer() {
             const userAnswer = parseInt(document.getElementById('answer').value);
 
-            // Ստուգում ենք, արդյոք պատասխանը մուտքագրված է
             if (isNaN(userAnswer)) {
                 document.getElementById('result').textContent = "Մուտքագրեք պատասխանը!";
                 return;
@@ -178,33 +325,30 @@
                 document.getElementById('result').textContent = "Ճիշտ է․․Աբրիկոս! 🎉";
                 score++;
                 correctAnswers++;
-                correctSound.play(); // Ճիշտ պատասխանի ձայն
+                correctSound.play();
             } else {
                 document.getElementById('result').textContent = `Սխալ է: Ճիշտ պատասխանը՝ ${correctAnswer} 😢`;
                 incorrectAnswers++;
-                uncorrectSound.play(); // Սխալ պատասխանի ձայն
+                uncorrectSound.play();
             }
 
             document.getElementById('score').textContent = `Միավորներ: ${score}`;
             document.getElementById('stats').textContent = `Ճիշտ: ${correctAnswers} | Սխալ: ${incorrectAnswers}`;
 
-            // Անջատել կոճակը և Enter ստեղնը
             document.getElementById('checkButton').disabled = true;
             document.getElementById('answer').disabled = true;
 
-            // Հաջորդ հարցից առաջ դադար
             setTimeout(() => {
                 generateQuestion();
-                document.getElementById('answer').disabled = false; // Միացնել դաշտը
-                document.getElementById('answer').focus(); // Ֆոկուս դնել դաշտի վրա
-            }, 2000); // 2 վայրկյան դադար
+                document.getElementById('answer').disabled = false;
+                document.getElementById('answer').focus();
+            }, 2000);
         }
 
-        // Enter ստեղնի մշակում
+        // Обработка нажатия Enter
         document.getElementById('answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 const userAnswer = document.getElementById('answer').value;
-                // Ստուգում ենք, արդյոք պատասխանը մուտքագրված է
                 if (userAnswer.trim() !== "") {
                     checkAnswer();
                 } else {
@@ -213,14 +357,14 @@
             }
         });
 
-        // Ծնող պատուհանից հաղորդագրությունների մշակում
+        // Обработка сообщений от родительского окна
         window.addEventListener('message', (event) => {
             if (event.data.type === 'setDifficulty') {
                 setDifficulty(event.data.difficulty);
             }
         });
 
-        // Խաղի մեկնարկ
+        // Начало игры
         setDifficulty('easy');
         generateQuestion();
     </script>
