@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Խաղ 1: Սովորում ենք տառերը</title>
+    <title>Գումարում և Հանում</title>
     <style>
-          body, html {
+        body, html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -13,131 +13,216 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: none
+            background: none;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
 
         .game-container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: none;
             padding: 100px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
 			width: 500px;
 			height: 300px;
         }
 
         h1 {
-            color: #4a90e2;
+            color: #ff6b81;
             font-size: 24px;
             margin-bottom: 20px;
         }
 
-        .letter {
-            font-size: 120px;
+        .question {
+            font-size: 48px;
             font-weight: bold;
             margin: 20px 0;
             color: #333;
         }
 
-        .word {
-            font-size: 30px;
-            margin: 10px 0;
-            color: #4a90e2;
+        input {
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #ff6b81;
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         button {
-            margin-top: 20px;
-            padding: 15px 30px;
+            padding: 10px 20px;
             font-size: 18px;
-            background: #4a90e2;
+            background: #ff6b81;
             color: white;
             border: none;
             border-radius: 10px;
             cursor: pointer;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         button:hover {
-            background: #357abd;
+            background: #ff4757;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            min-height: 24px;
+        }
+
+        #score {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #stats {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666;
+            min-height: 24px;
         }
     </style>
 </head>
 <body>
     <div class="game-container">
-        <h1>Սովորում ենք տառերը</h1>
-        <div class="letter" id="letter"></div>
-        <div class="word" id="word"></div>
-        <button onclick="nextLetter()" aria-label="Հաջորդ տառը">Հաջորդ տառը</button>
+        <h1>Գումարում և Հանում</h1>
+        <div class="question" id="question"></div>
+        <input type="number" id="answer" placeholder="Մուտքագրեք պատասխանը">
+        <button id="checkButton" onclick="checkAnswer()">Ստուգել</button>
+        <div id="result"></div>
+        <div id="score">Միավորներ: 0</div>
+        <div id="stats">Ճիշտ: 0 | Սխալ: 0</div>
     </div>
 
-    <script>
-        const letters = ['Ա', 'Բ', 'Գ', 'Դ', 'Ե', 'Զ', 'Է', 'Ը', 'Թ', 'Ժ', 'Ի', 'Լ', 'Խ', 'Ծ', 'Կ', 'Հ', 'Ձ', 'Ղ', 'Ճ', 'Մ', 'Յ', 'Ն', 'Շ', 'Ո', 'Չ', 'Պ', 'Ջ', 'Ռ', 'Ս', 'Վ', 'Տ', 'Ր', 'Ց', 'Ւ', 'Փ', 'Ք', 'Օ', 'Ֆ'];
-        const words = {
-            'Ա': 'Արև', 'Բ': 'Բանան', 'Գ': 'Գիրք', 'Դ': 'Դարպաս', 'Ե': 'Երկինք',
-            'Զ': 'Զանգ', 'Է': 'Էլեկտրական', 'Ը': 'Ընկույզ', 'Թ': 'Թռչուն', 'Ժ': 'Ժամացույց',
-            'Ի': 'Իմաստուն', 'Լ': 'Լույս', 'Խ': 'Խնձոր', 'Ծ': 'Ծաղիկ', 'Կ': 'Կատու',
-            'Հ': 'Հայաստան', 'Ձ': 'Ձուկ', 'Ղ': 'Ղեկ', 'Ճ': 'Ճանապարհ', 'Մ': 'Մեքենա',
-            'Յ': 'Յուղ', 'Ն': 'Նավ', 'Շ': 'Շուն', 'Ո': 'Ուսուցիչ', 'Չ': 'Չափ',
-            'Պ': 'Պատուհան', 'Ջ': 'Ջուր', 'Ռ': 'Ռադիո', 'Ս': 'Սեղան', 'Վ': 'Վարունգ',
-            'Տ': 'Տուն', 'Ր': 'Րոպե', 'Ց': 'Ցանկ', 'Ւ': 'Ւղի', 'Փ': 'Փողոց',
-            'Ք': 'Քար', 'Օ': 'Օդանավ', 'Ֆ': 'Ֆուտբոլ'
-        };
-        let remainingLetters = [...letters]; // Оставшиеся буквы
-        let currentLetter;
-        let difficulty = 'easy'; // Уровень сложности по умолчанию
+    <!-- Աուդիո ձայնային էֆեկտների համար -->
+    <audio id="correctSound" src="correct.mp3"></audio>
+    <audio id="uncorrectSound" src="uncorrect.mp3"></audio>
 
-        // Установка уровня сложности
+    <script>
+        let currentQuestion;
+        let score = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        let difficulty = 'easy'; // Լռելյայն դժվարության մակարդակ
+
+        // Աուդիոէլեմենտներ
+        const correctSound = document.getElementById('correctSound');
+        const uncorrectSound = document.getElementById('uncorrectSound');
+
+        // Դժվարության մակարդակի սահմանում
         function setDifficulty(level) {
             difficulty = level;
-            remainingLetters = [...letters]; // Сбрасываем оставшиеся буквы
-            nextLetter();
+            generateQuestion();
         }
 
-        // Отображение следующей буквы
-        function nextLetter() {
-            const letterElement = document.getElementById('letter');
-            const wordElement = document.getElementById('word');
+        // Օրինակի ստեղծում
+        function generateQuestion() {
+            let a, b, operation;
 
-            if (remainingLetters.length === 0) {
-                // Если все буквы показаны, начинаем заново
-                remainingLetters = [...letters];
-                letterElement.textContent = "Շնորհավոր! Սկսում ենք նորից!";
-                wordElement.textContent = '';
-                setTimeout(() => {
-                    nextLetter();
-                }, 2000);
+            do {
+                if (difficulty === 'easy') {
+                    a = Math.floor(Math.random() * 10) + 1;
+                    b = Math.floor(Math.random() * 10) + 1;
+                    operation = Math.random() > 0.5 ? '+' : '-';
+                } else if (difficulty === 'medium') {
+                    a = Math.floor(Math.random() * 20) + 1;
+                    b = Math.floor(Math.random() * 20) + 1;
+                    operation = Math.random() > 0.5 ? '+' : '-';
+                } else if (difficulty === 'hard') {
+                    a = Math.floor(Math.random() * 50) + 1;
+                    b = Math.floor(Math.random() * 50) + 1;
+                    operation = Math.random() > 0.5 ? '+' : '-';
+                }
+
+                // Ստուգում ենք, որ հանման արդյունքը ոչ բացասական լինի
+            } while (operation === '-' && a < b);
+
+            const question = `${a} ${operation} ${b}`; // Հեռացրել ենք "="
+            const correctAnswer = operation === '+' ? a + b : a - b;
+
+            currentQuestion = { question, correctAnswer };
+            document.getElementById('question').textContent = question;
+            document.getElementById('result').textContent = '';
+            document.getElementById('answer').value = '';
+            document.getElementById('checkButton').disabled = false; // Միացնել կոճակը
+        }
+
+        // Պատասխանի ստուգում
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+
+            // Ստուգում ենք, արդյոք պատասխանը մուտքագրված է
+            if (isNaN(userAnswer)) {
+                document.getElementById('result').textContent = "Մուտքագրեք պատասխանը!";
                 return;
             }
 
-            // Выбираем случайную букву из оставшихся
-            const randomIndex = Math.floor(Math.random() * remainingLetters.length);
-            currentLetter = remainingLetters[randomIndex];
-            remainingLetters.splice(randomIndex, 1); // Удаляем букву из оставшихся
+            const { correctAnswer } = currentQuestion;
 
-            // Показываем букву в зависимости от уровня сложности
-            if (difficulty === 'easy') {
-                letterElement.textContent = currentLetter.toLowerCase();
-                wordElement.textContent = '';
-            } else if (difficulty === 'medium') {
-                letterElement.textContent = currentLetter;
-                wordElement.textContent = '';
-            } else if (difficulty === 'hard') {
-                letterElement.textContent = currentLetter;
-                wordElement.textContent = words[currentLetter]; // Только слово, без префикса
+            if (userAnswer === correctAnswer) {
+                document.getElementById('result').textContent = "Ճիշտ է․․Աբրիկոս! 🎉";
+                score++;
+                correctAnswers++;
+                correctSound.play(); // Ճիշտ պատասխանի ձայն
+            } else {
+                document.getElementById('result').textContent = `Սխալ է: Ճիշտ պատասխանը՝ ${correctAnswer} 😢`;
+                incorrectAnswers++;
+                uncorrectSound.play(); // Սխալ պատասխանի ձայն
             }
+
+            document.getElementById('score').textContent = `Միավորներ: ${score}`;
+            document.getElementById('stats').textContent = `Ճիշտ: ${correctAnswers} | Սխալ: ${incorrectAnswers}`;
+
+            // Անջատել կոճակը և Enter ստեղնը
+            document.getElementById('checkButton').disabled = true;
+            document.getElementById('answer').disabled = true;
+
+            // Հաջորդ հարցից առաջ դադար
+            setTimeout(() => {
+                generateQuestion();
+                document.getElementById('answer').disabled = false; // Միացնել դաշտը
+                document.getElementById('answer').focus(); // Ֆոկուս դնել դաշտի վրա
+            }, 2000); // 2 վայրկյան դադար
         }
 
-        // Обработка сообщений от родительского окна
+        // Enter ստեղնի մշակում
+        document.getElementById('answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const userAnswer = document.getElementById('answer').value;
+                // Ստուգում ենք, արդյոք պատասխանը մուտքագրված է
+                if (userAnswer.trim() !== "") {
+                    checkAnswer();
+                } else {
+                    document.getElementById('result').textContent = "Մուտքագրեք պատասխանը!";
+                }
+            }
+        });
+
+        // Ծնող պատուհանից հաղորդագրությունների մշակում
         window.addEventListener('message', (event) => {
             if (event.data.type === 'setDifficulty') {
                 setDifficulty(event.data.difficulty);
             }
         });
 
-        // Запуск игры
+        // Խաղի մեկնարկ
         setDifficulty('easy');
-        nextLetter();
+        generateQuestion();
     </script>
 </body>
 </html>
