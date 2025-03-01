@@ -58,15 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const iframe = document.createElement('iframe');
                 iframe.src = iframeSrc;
                 iframe.style.border = 'none';
-                iframe.style.borderRadius = '21px';
 
                 // Проверяем ширину экрана
                 if (window.innerWidth <= 992) { // Мобильная версия
                     iframe.style.width = '100%';
-                    iframe.style.height = '500px'; // Высота для мобильной версии
+                    iframe.style.height = 'calc(100vh - 130px)'; // Высота для мобильной версии
                 } else { // Веб-версия
                     iframe.style.width = '100%';
-                    iframe.style.height = '500px'; // Высота для веб-версии
+                    iframe.style.height = 'calc(100vh - 280px)'; // Высота для веб-версии
                 }
 
                 // Очищаем центральный блок и добавляем iframe
