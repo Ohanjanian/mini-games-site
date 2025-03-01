@@ -34,10 +34,50 @@
         }
 
         h1 {
-            color: #ff6b81;
+            color: #ffffff;
             font-size: 24px;
             margin-bottom: 20px;
         }
+
+        .difficulty-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px; /* Добавлено для отступа сверху */
+        }
+
+        .difficulty-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .difficulty-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.3),
+                inset 0 3px 6px rgba(255, 255, 255, 0.8),
+                inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .difficulty-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2),
+                inset 0 1px 3px rgba(255, 255, 255, 0.4),
+                inset 0 -1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-easy { background: linear-gradient(to bottom, #c8fa02, #2bab02); }
+        .btn-medium { background: linear-gradient(to bottom, #00c6ff, #0072ff); }
+        .btn-hard { background: linear-gradient(to bottom, #ff6b6b, #ff3860); }
 
         .question {
             font-size: 48px;
@@ -50,7 +90,8 @@
         }
 
         .question input {
-            width: 100px;
+			height: 35px;
+            width: 400px;
             font-size: 48px;
             font-weight: bold;
             text-align: center;
@@ -155,16 +196,12 @@
         }
 
         #deleteButton {
-            flex: 1; /* Кнопка "Удалить" занимает 1/4 ширины */
-            height: 80px;
+		width: 40px
+		height: 80px;
             font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        #deleteButton::before {
-            content: '🗑️'; /* Иконка мусорного ящика */
         }
 
         #result {
@@ -207,14 +244,23 @@
                 margin-bottom: 10px;
             }
 
+            .difficulty-buttons {
+                gap: 5px;
+            }
+
+            .difficulty-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
             .question {
                 font-size: 36px;
                 margin: 10px 0;
             }
 
             .question input {
-                width: 80px;
-                font-size: 36px;
+                width: 100px;
+                font-size: 30px;
             }
 
             .button-grid {
@@ -251,8 +297,8 @@
 <body>
     <div class="game-container">
         <h1>Գումարում և Հանում</h1>
+
         <div class="question" id="question">
-            <!-- Поле для ввода ответа теперь рядом с вопросом -->
             <span id="questionText"></span> = <input type="number" id="answer" placeholder="?" min="0">
         </div>
 
@@ -273,12 +319,19 @@
         <!-- Кнопки "Проверить" и "Удалить" -->
         <div class="action-buttons">
             <button id="checkButton" class="glossy-btn btn-check" onclick="checkAnswer()">Ստուգել</button>
-            <button id="deleteButton" class="glossy-btn btn-delete" onclick="clearAnswer()"></button>
+            <button id="deleteButton" class="glossy-btn btn-delete" onclick="clearAnswer()">🗑️</button>
         </div>
 
         <div id="result"></div>
         <div id="score">Միավորներ: 0</div>
         <div id="stats">Ճիշտ: 0 | Սխալ: 0</div>
+
+        <!-- Кнопки уровня сложности -->
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn btn-easy" onclick="setDifficulty('easy')">Легкий</button>
+            <button class="difficulty-btn btn-medium" onclick="setDifficulty('medium')">Средний</button>
+            <button class="difficulty-btn btn-hard" onclick="setDifficulty('hard')">Сложный</button>
+        </div>
     </div>
 
     <!-- Аудио для звуковых эффектов -->
@@ -312,12 +365,12 @@
                     b = Math.floor(Math.random() * 10) + 1;
                     operation = Math.random() > 0.5 ? '+' : '-';
                 } else if (difficulty === 'medium') {
-                    a = Math.floor(Math.random() * 20) + 1;
-                    b = Math.floor(Math.random() * 20) + 1;
+                    a = Math.floor(Math.random() * 90) + 10;
+                    b = Math.floor(Math.random() * 90) + 10;
                     operation = Math.random() > 0.5 ? '+' : '-';
                 } else if (difficulty === 'hard') {
-                    a = Math.floor(Math.random() * 50) + 1;
-                    b = Math.floor(Math.random() * 50) + 1;
+                    a = Math.floor(Math.random() * 900) + 100;
+                    b = Math.floor(Math.random() * 900) + 100;
                     operation = Math.random() > 0.5 ? '+' : '-';
                 }
             } while (operation === '-' && a < b);
@@ -387,13 +440,6 @@
                 } else {
                     document.getElementById('result').textContent = "Մուտքագրեք պատասխանը!";
                 }
-            }
-        });
-
-        // Обработка сообщений от родительского окна
-        window.addEventListener('message', (event) => {
-            if (event.data.type === 'setDifficulty') {
-                setDifficulty(event.data.difficulty);
             }
         });
 
