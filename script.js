@@ -79,12 +79,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обработчик изменения размеров окна
-    window.addEventListener('resize', () => {
-        const iframe = centerBlock.querySelector('iframe');
-        if (iframe) {
-            iframe.style.width = `${centerBlock.offsetWidth}px`;
-            iframe.style.height = `${centerBlock.offsetHeight}px`;
-        }
-    });
 });

@@ -215,26 +215,40 @@ body {
         display: block; /* Показываем бургер-иконку */
     }
 
-    .box.side.menu {
-        display: none; /* Скрываем меню */
-    }
+    /* Стили для меню в мобильной версии */
+/* Стили для меню в мобильной версии */
+.box.side.menu {
+    display: none; /* По умолчанию меню скрыто */
+    position: fixed;
+    top: 50px; /* Отступ сверху, чтобы не перекрывать верхний статус-бар */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 100px); /* Высота меню на всю оставшуюся высоту экрана, учитывая верхний и нижний статус-бары */
+    background-color: #7CB9E8; /* Цвет фона меню */
+    z-index: 1001; /* Убедимся, что меню поверх всего контента, но под нижним статус-баром */
+    overflow-y: auto; /* Прокрутка внутри меню, если кнопок много */
+    padding: 20px; /* Отступы внутри меню */
+    box-sizing: border-box; /* Учитываем padding в размерах */
+}
 
-    .box.side.menu.active {
-        display: flex; /* Показываем меню при активации */
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        animation: slideIn 0.5s ease forwards;
-    }
+/* Стили для активного меню */
+.box.side.menu.active {
+    display: flex; /* Показываем меню */
+    flex-direction: column; /* Кнопки в колонку */
+    gap: 10px; /* Отступы между кнопками */
+}
+
+/* Запрет прокрутки страницы при открытом меню */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
 
     
     .box.side.right-block {
         display: none; /* Скрываем правый блок */
     }
-
-
-
-
 
     .glossy-btn {
         width: 70%; /* Ширина кнопок на всю ширину меню */
