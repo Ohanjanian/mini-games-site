@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="hy">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игра 1: Учим буквы!</title>
+    <title>Խաղ 1: Սովորում ենք տառեր!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="game1.css"> <!-- Подключение CSS -->
     <link rel="stylesheet" href="buttons.css"> <!-- Подключение CSS -->
@@ -12,7 +12,7 @@
 <body>
     <div class="game-container">
         <!-- Название игры -->
-        <h1>Учим буквы!</h1>
+        <h1>Սովորում ենք տառեր</h1>
 
         <!-- Буква -->
         <div class="letter" id="letter"></div>
@@ -21,29 +21,32 @@
         <div class="word" id="word"></div>
 
         <!-- Кнопка "Сначала" -->
-		<button class="restart-btn" onclick="restartGame()" aria-label="Следующая буква">Начать Заново</button>		
-		<!-- Кнопка "Следующая буква" -->
-        <button class="next-letter-btn" onclick="nextLetter()" aria-label="Следующая буква">Следующая буква</button>
+        <button class="restart-btn" onclick="restartGame()" aria-label="Հաջորդ տառ">Սկսել նորից</button>        
+        <!-- Кнопка "Следующая буква" -->
+        <button class="next-letter-btn" onclick="nextLetter()" aria-label="Հաջորդ տառ">Հաջորդ տառ</button>
 
         <!-- Кнопки сложности -->
         <div class="difficulty-buttons">
-            <button class="easy-btn" onclick="setDifficulty('easy')">Строчная</button>
-            <button class="normal-btn" onclick="setDifficulty('medium')">Заглавная</button>
-            <button class="hard-btn" onclick="setDifficulty('hard')">Слово</button>
+            <button class="easy-btn" onclick="setDifficulty('easy')">Փոքրատառ</button>
+            <button class="normal-btn" onclick="setDifficulty('medium')">Մեծատառ</button>
+            <button class="hard-btn" onclick="setDifficulty('hard')">Բառ</button>
         </div>
     </div>
 
     <script>
-    const letters = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+    const letters = ['Ա', 'Բ', 'Գ', 'Դ', 'Ե', 'Զ', 'Է', 'Ը', 'Թ', 'Ժ', 'Ի', 'Լ', 'Խ', 'Ծ', 'Կ', 'Հ', 'Ձ', 'Ղ', 'Ճ', 'Մ', 'Յ', 'Ն', 'Շ', 'Ո', 'Չ', 'Պ', 'Ջ', 'Ռ', 'Ս', 'Վ', 'Տ', 'Ր', 'Ց', 'ՈՒ', 'Փ', 'Ք', 'ԵՎ', 'Օ', 'Ֆ'];
     const words = {
-        'А': 'Аист', 'Б': 'Бабочка', 'В': 'Воробей', 'Г': 'Гриб', 'Д': 'Дом',
-        'Е': 'Енот', 'Ё': 'Ёлка', 'Ж': 'Жираф', 'З': 'Зонт', 'И': 'Игрушка',
-        'Й': 'Йогурт', 'К': 'Кот', 'Л': 'Лиса', 'М': 'Медведь', 'Н': 'Носорог',
-        'О': 'Ослик', 'П': 'Пингвин', 'Р': 'Ракета', 'С': 'Солнце', 'Т': 'Тигр',
-        'У': 'Улитка', 'Ф': 'Флаг', 'Х': 'Хлеб', 'Ц': 'Цветок', 'Ч': 'Чайник',
-        'Ш': 'Шар', 'Щ': 'Щенок', 'Ъ': 'Подъезд', 'Ы': 'Мышь', 'Ь': 'Деньги',
-        'Э': 'Экран', 'Ю': 'Юла', 'Я': 'Яблоко'
-    };
+    'Ա': 'Արև', 'Բ': 'Բույս', 'Գ': 'Գայլ', 'Դ': 'Դուռ', 'Ե': 'Եղնիկ',
+    'Զ': 'Զանգ', 'Է': 'Էշ', 'Ը': 'Ընկույզ', 'Թ': 'Թիթեռ', 'Ժ': 'Ժպիտ',
+    'Ի': 'Իշխան', 'Լ': 'Լեռ', 'Խ': 'Խնձոր', 'Ծ': 'Ծառ', 'Կ': 'Կատու',
+    'Հ': 'Հանճար', 'Ձ': 'Ձուկ', 'Ղ': 'Ղեկ', 'Ճ': 'Ճանճ', 'Մ': 'Մուկ',
+    'Յ': 'Յուղ', 'Ն': 'Նամակ', 'Շ': 'Շուն', 'Ո': 'Ոչխար', 'Չ': 'Չար',
+    'Պ': 'Պանր', 'Ջ': 'Ջուր', 'Ռ': 'Ռադիո', 'Ս': 'Սար', 'Վ': 'Վագր',
+    'Տ': 'Տուն', 'Ր': 'Րոպե', 'Ց': 'Ցանց', 'Փ': 'Փիղ',
+    'Ք': 'Քար', 'Օ': 'Օրինակ', 'Ֆ': 'Ֆուտբոլ',
+    'ՈՒ': 'Ուլիկ', // Комбинация
+    'ԵՎ': 'ԵՎրոպա'      // Комбинация
+};
 
     let remainingLetters = [...letters];
     let currentLetter;
@@ -64,13 +67,13 @@
 
         if (remainingLetters.length === 0) {
             // Если буквы закончились, показываем сообщение о завершении
-            letterElement.textContent = "ПОЗДРАВЛЯЕМ!";
+            letterElement.textContent = "ՇՆՈՐՀԱՎՈՐԱՆՔՆԵՐ!";
             letterElement.classList.add('congrats-message');
             wordElement.textContent = '';
 
             // Создаем кнопку "Начать заново"
             const restartButton = document.createElement('button');
-            restartButton.textContent = "Начать заново";
+            restartButton.textContent = "Սկսել նորից";
             restartButton.classList.add('restart-btn', 'custom-style');
             restartButton.onclick = restartGame; // Привязываем функцию перезапуска
             wordElement.appendChild(restartButton);
@@ -114,6 +117,6 @@
     // Инициализация игры
     setDifficulty('easy'); // Устанавливаем начальный уровень сложности
     nextLetter(); // Запускаем первую букву
-</script>
+    </script>
 </body>
-</html>
+</html>`

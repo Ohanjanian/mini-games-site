@@ -54,7 +54,7 @@ h1 {
     font-size: 100px;
     font-weight: bold;
     margin: 10px 0;
-    color: #f089e5;
+    color: #0072ff;
 	position: absolute; /* Фиксируем позицию */
 	transform: translate(0%, 60%);
     max-height: 200px;
@@ -134,4 +134,3 @@ h1 {
     position: relative;
     
 }
-
