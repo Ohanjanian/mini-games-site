@@ -1,0 +1,204 @@
+/* Для экранов меньше 992px */
+@media screen and (max-width: 420px) {
+    .container {
+        max-width: 100%; /* Контейнер занимает всю ширину экрана */
+        padding: 0; /* Убираем отступы */
+        flex-direction: column; /* Блоки становятся вертикальными */
+        min-height: calc(100vh - 100px); /* Учитываем высоту статус-баров */
+        margin: 50px auto; /* Отступы для статус-баров */
+    }
+
+    .box.center {
+        width: 100%; /* Ширина на весь экран */
+        height: auto; /* Высота автоматическая */
+        min-height: 300px; /* Минимальная высота, как у блока 2 */
+        border-radius: 0px; /* Закругляем углы */
+        margin-bottom: 0px; /* Отступ снизу */
+    }
+
+    .box.center iframe {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px; /* Закругляем углы */
+    }
+
+    .burger-icon {
+        display: block; /* Показываем бургер-иконку */
+    }
+
+      
+    .box.side.right-block {
+        display: none; /* Скрываем правый блок */
+    }
+
+    .glossy-btn {
+        width: 70%; /* Ширина кнопок на всю ширину меню */
+        height: 36px; /* Уменьшаем высоту кнопок */
+        font-size: 12px; /* Уменьшаем размер шрифта */
+        margin-bottom: 2px; /* Уменьшаем отступ между кнопками */
+        display: block; /* Делаем кнопки блочными элементами */
+        margin-left: auto; /* Центрирование по горизонтали */
+        margin-right: auto; /* Центрирование по горизонтали */
+		animation-delay: calc(var(--index) * 0.1s);
+
+    }
+
+    .box.side.menu {
+        gap: 8px; /* Уменьшаем расстояние между кнопками в меню */
+        align-items: center;
+		height: calc(100vh - 100px);
+
+    }
+
+
+:root {
+    --animation-duration-in: 0.5s; /* Длительность анимации появления кнопок */
+    --animation-duration-out: 0.4s; /* Длительность анимации исчезновения кнопок */
+    --animation-delay-in: 0.1s; /* Задержка между кнопками при появлении */
+    --animation-delay-out: 0.05s; /* Задержка между кнопками при исчезновении */
+    --animation-duration-box: 1s; /* Длительность анимации для левого блока */
+}
+
+/* Анимация для открытия кнопок */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Применяем анимацию для появления кнопок */
+.box.side.menu.active .glossy-btn {
+    animation: slideIn var(--animation-duration-in) ease forwards;
+    animation-delay: calc(var(--index) * var(--animation-delay-in));
+    opacity: 0;
+}
+
+/* Анимация для закрытия кнопок */
+@keyframes slideOut {
+	from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+/* Применяем анимацию для исчезновения кнопок */
+.box.side.menu.closing .glossy-btn {
+    animation: slideOut var(--animation-duration-out) ease forwards;
+    animation-delay: calc((var(--total-buttons) - var(--index) - 1) * var(--animation-delay-out));
+    opacity: 100;
+}
+
+/* Скрываем меню после завершения анимации */
+.box.side.menu.closing {
+    animation: slideOutBox var(--animation-duration-box) ease forwards;
+    pointer-events: none; /* Отключаем взаимодействие с меню во время анимации */
+}
+
+@keyframes slideOutBox {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+																									/* Кнопки для меню */
+.menu-btn {
+    width: 80%; /* Ширина кнопки */
+    
+}
+
+
+
+.easy-btn, .normal-btn, .hard-btn {
+    width: 100px; /* Ширина кнопки */
+    --height: 46px; /* Высота кнопки */
+    height: var(--height);
+    border: none; /* Убираем границу */
+    border-radius: calc(var(--height) / 2); /* 50% от высоты */
+    cursor: pointer; /* Меняем курсор на указатель при наведении на кнопку */
+    font-size: 14px; /* Размер шрифта: 14 пикселей */
+    font-weight: bold; /* Жирный шрифт */
+    position: relative; /* Относительное позиционирование для псевдоэлементов */
+    margin-bottom: 0px; /* Отступ снизу: 0 пикселей */
+}
+
+h1 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+	position: absolute; /* Фиксируем позицию */
+	transform: translate(0%, -1200%);
+}
+
+
+.letter {
+    font-size: 150px;
+    margin: 20px 0;
+	position: absolute; /* Фиксируем позицию */
+	transform: translate(0%, -80%);
+ 
+}
+
+.word {
+    font-size: 20vw;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #f089e5;
+	position: absolute; /* Фиксируем позицию */
+	transform: translate(0%, 60%);
+    max-height: 200px;
+    overflow: hidden;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень для читаемости */
+}
+
+.difficulty-hard .word {
+    font-size: 80px;
+}
+
+/* Стили для поздравительного сообщения */
+.congrats-message {
+    font-size: 30px; /* Увеличил для читаемости */
+
+}
+
+
+.delete-btn {
+    width: 50px; /* Ширина кнопки */
+    height: 50px; /* Высота кнопки */
+    color: white;
+    background: linear-gradient(to bottom, #fa0202, #ab0202);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.6),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    transform: translateY(0); /* При нажатии кнопка возвращается в исходное положение */
+
+}
+
+
+
+
+.question {
+    font-size: 30px;
+    
+}

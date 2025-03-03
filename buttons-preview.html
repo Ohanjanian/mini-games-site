@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Превью кнопок</title>
+    <link rel="stylesheet" href="buttons.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        /* Дополнительные стили для страницы превью */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        /* Общий контейнер для всех блоков */
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* Контейнер для кнопок меню (справа) */
+        .menu-container {
+            flex: 1;
+            max-width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+/* Контейнер для кнопок меню (справа) */
+        .next-container {
+            flex: 1;
+            max-width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Контейнер для остальных кнопок (слева) */
+        .buttons-container {
+            flex: 2;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для заголовков контейнеров */
+        .container-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container-title.my-buttons {
+            color: #0072ff; /* Синий цвет для заголовка "Мои кнопки" */
+        }
+
+        .container-title.square-buttons {
+            color: #ff6f61; /* Оранжевый цвет для заголовка "Квадратные кнопки" */
+        }
+
+        .container-title.round-buttons {
+            color: #6a11cb; /* Фиолетовый цвет для заголовка "Круглые кнопки" */
+        }
+
+        .container-title.menu-buttons {
+            color: #2bab02; /* Зеленый цвет для заголовка "Кнопки меню" */
+        }
+
+        /* Стили для контейнера с кнопками */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-item {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+	
+	<!-- Контейнер для кнопок меню (справа) -->
+        <div class="menu-container">
+            <h2 class="container-title menu-buttons">Кнопки меню</h2>
+            <div class="button-container">
+                <!-- Кнопки для меню -->
+                <button class="menu-btn btn-color1">Главная</button>
+                <button class="menu-btn btn-color2">О нас</button>
+                <button class="menu-btn btn-color3">Услуги</button>
+                <button class="menu-btn btn-color4">Портфолио</button>
+                <button class="menu-btn btn-color5">Контакты</button>
+				<button class="menu-btn btn-color6">Главная</button>
+                <button class="menu-btn btn-color7">О нас</button>
+                <button class="menu-btn btn-color8">Услуги</button>
+                <button class="menu-btn btn-color9">Портфолио</button>
+                <button class="menu-btn btn-color10">Контакты</button>
+            </div>
+        </div>
+	
+        <!-- Контейнер для остальных кнопок (слева) -->
+        <div class="buttons-container">
+            <!-- Раздел "Мои кнопки" -->
+            <h2 class="container-title my-buttons">Прямоугольные кнопки</h2>
+            <div class="button-container">
+                <!-- Глянцевые кнопки -->
+                <div class="button-item">
+                    <button class="glossy-btn btn-color1">.btn-color1</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color2">.btn-color2</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color3">.btn-color3</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color4">.btn-color4</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color5">.btn-color5</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color6">.btn-color6</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color7">.btn-color7</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color8">.btn-color8</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color9">.btn-color9</button>
+                </div>
+                <div class="button-item">
+                    <button class="glossy-btn btn-color10">.btn-color10</button>
+                </div>
+            </div>
+
+            <!-- Раздел "Квадратные кнопки" -->
+            <h2 class="container-title square-buttons">Квадратные кнопки</h2>
+            <div class="button-container">
+                <!-- Квадратные кнопки -->
+                <div class="button-item">
+                    <button class="square-btn btn-color1">1</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color2">2</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color3">3</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color4">4</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color5">5</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color6">6</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color7">7</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color8">8</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color9">9</button>
+                </div>
+                <div class="button-item">
+                    <button class="square-btn btn-color10">10</button>
+                </div>
+            </div>
+
+            <!-- Раздел "Круглые кнопки" -->
+            <h2 class="container-title round-buttons">Круглые кнопки</h2>
+            <div class="button-container">
+                <!-- Круглые кнопки -->
+                <div class="button-item">
+                    <button class="round-btn btn-color1">1</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color2">2</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color3">3</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color4">4</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color5">5</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color6">6</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color7">7</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color8">8</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color9">9</button>
+                </div>
+                <div class="button-item">
+                    <button class="round-btn btn-color10">10</button>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Контейнер для кнопок меню (справа) -->
+        <div class="next-container">
+            <h2 class="container-title menu-buttons">Другие кнопки</h2>
+            <div class="button-container">
+                <!-- Кнопки для меню -->
+                <button class="next-btn">Следующий</button>
+                <button class="prev-btn">Предведущий</button>
+                <button class="chek-btn">Проверить</button>
+                <button class="delete-btn">Удалить</button>
+                <button class="restart-btn">Начать Заново</button>
+            </div>
+			<div class="button-container">
+                <!-- Кнопки для меню -->
+                <button class="easy-btn">Легкий</button>
+                <button class="normal-btn">Средний</button>
+                <button class="hard-btn">Сложный</button>
+            </div>
+        </div>
+
+        
+    </div>
+</body>
+</html>

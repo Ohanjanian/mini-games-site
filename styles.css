@@ -76,80 +76,10 @@ body {
 }
 
 .box.side.menu h3 {
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
     font-size: 18px;
 }
 
-/* Стили для глянцевых кнопок */
-.glossy-btn {
-    width: 100%; /* Ширина кнопок на всю ширину меню */
-    height: 47px;
-    color: white;
-    border: none;
-    border-radius: 21px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-    box-shadow: 
-        0 4px 6px rgba(0, 0, 0, 0.2),
-        inset 0 2px 4px rgba(255, 255, 255, 0.6),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-    margin-bottom: 0px; /* Отступ между кнопками */
-}
-
-.glossy-btn::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
-    transform: rotate(45deg);
-    transition: opacity 0.3s ease;
-    opacity: 0.5;
-    z-index: 1;
-}
-
-.glossy-btn:hover::after {
-    opacity: 0.8;
-}
-
-.glossy-btn:active::after {
-    opacity: 0.3;
-}
-
-.glossy-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-        0 6px 12px rgba(0, 0, 0, 0.3),
-        inset 0 3px 6px rgba(255, 255, 255, 0.8),
-        inset 0 -3px 6px rgba(0, 0, 0, 0.4);
-}
-
-.glossy-btn:active {
-    transform: translateY(0);
-    box-shadow: 
-        0 4px 6px rgba(0, 0, 0, 0.2),
-        inset 0 1px 3px rgba(255, 255, 255, 0.4),
-        inset 0 -1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* Градиенты для кнопок */
-.btn-color1 { background: linear-gradient(to bottom, #c8fa02, #2bab02); }
-.btn-color2 { background: linear-gradient(to bottom, #00c6ff, #0072ff); }
-.btn-color3 { background: linear-gradient(to bottom, #f857a6, #ff5858); }
-.btn-color4 { background: linear-gradient(to bottom, #43e97b, #1abc9c); }
-.btn-color5 { background: linear-gradient(to bottom, #ffcc00, #ff6f61); }
-.btn-color6 { background: linear-gradient(to bottom, #a18cd1, #6a11cb); }
-.btn-color7 { background: linear-gradient(to bottom, #ff6b6b, #ff3860); }
-.btn-color8 { background: linear-gradient(to bottom, #4cd964, #00e676); }
-.btn-color9 { background: linear-gradient(to bottom, #00b4db, #0096ff); }
-.btn-color10 { background: linear-gradient(to bottom, #ff9a9e, #ff6f61); }
-.btn-color11 { background: linear-gradient(to bottom, #c8fa02, #2bab02); }
 
 /* Стили для центрального блока */
 .box.center {
@@ -157,7 +87,17 @@ body {
     background-color: #7CB9E8;
 }
 
-
+.box.center img {
+    max-width: 100%; /* Максимальная ширина изображения — 100% от ширины блока */
+    max-height: 100%; /* Максимальная высота изображения — 100% от высоты блока */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    display: block; /* Делаем изображение блочным элементом */
+    margin: 0 auto; /* Выравниваем изображение по центру по горизонтали */
+    border-radius: 21px; /* Закругляем углы, как у блока */
+    object-fit: cover; /* Обрезаем изображение, чтобы оно заполнило квадрат */
+    aspect-ratio: 1 / 1; /* Сохраняем соотношение сторон 1:1 (квадрат) */
+}
 
 
 /* Стили для правого блока */
@@ -278,7 +218,7 @@ body.menu-open {
 }
 
 /* Применяем анимацию для появления кнопок */
-.box.side.menu.active .glossy-btn {
+.box.side.menu.active .menu-btn {
     animation: slideIn var(--animation-duration-in) ease forwards;
     animation-delay: calc(var(--index) * var(--animation-delay-in));
     opacity: 0;
@@ -297,7 +237,7 @@ body.menu-open {
 }
 
 /* Применяем анимацию для исчезновения кнопок */
-.box.side.menu.closing .glossy-btn {
+.box.side.menu.closing .menu-btn {
     animation: slideOut var(--animation-duration-out) ease forwards;
     animation-delay: calc((var(--total-buttons) - var(--index) - 1) * var(--animation-delay-out));
     opacity: 100;

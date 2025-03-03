@@ -1,0 +1,137 @@
+/* Основные стили для всех устройств */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.game-container {
+    text-align: center;
+    /*background: yellow;*/
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    width: 500px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+	position: absolute; /* Фиксируем позицию */
+	transform: translate(0%, -900%);
+
+
+}
+
+.letter {
+    font-size: 150px;
+    font-weight: bold;
+    margin: 20px 0;
+	position: absolute; /* Фиксируем позицию */
+	transform: translate(0%, -50%);
+    color: orange;
+    text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4); /* Тень для читаемости */
+}
+
+.word {
+    font-size: 100px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #f089e5;
+	position: absolute; /* Фиксируем позицию */
+	transform: translate(0%, 60%);
+    max-height: 200px;
+    overflow: hidden;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень для читаемости */
+}
+
+.difficulty-hard .word {
+    font-size: 80px;
+}
+
+/* Кнопка "Следующая буква" */
+.next-letter-btn {
+    width: 200px;
+    height: 46px;
+    padding: 10px 20px;
+    color: white;
+    background: linear-gradient(to bottom, #ffcc00, #ff6f61);
+    border: none;
+    border-radius: 21px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute; /* Фиксируем позицию */
+    bottom: 76px; /* 20px выше кнопок сложности (46px + 10px зазор) */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.6),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для поздравительного сообщения */
+.congrats-message {
+    font-size: 40px; /* Увеличил для читаемости */
+    color: white; /* Более контрастный цвет */
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    animation: fadeIn 1s ease forwards;
+}
+
+/* Стили для кнопки "Начать заново" */
+.restart-btn {
+    margin-bottom: 20px;
+    position: absolute; /* Фиксируем позицию */
+    transform: translateX(-50%);
+	bottom: 115px; /* Позиция выше кнопок сложности */
+
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Кнопки сложности */
+.difficulty-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.easy-btn, .normal-btn, .hard-btn {
+    width: 140px;
+    height: 46px;
+    position: relative;
+    
+}
+
