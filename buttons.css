@@ -221,7 +221,7 @@
 
 
 
-/* Кнопки для меню */
+																						/* Кнопки для меню */
 .menu-btn {
     width: 100%; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -298,7 +298,7 @@
 
 
 
-/* Круглые кнопки */
+																												/* Круглые кнопки */
 .round-btn {
     width: 50px; /* Ширина кнопки */
     height: 50px; /* Высота кнопки */
@@ -359,7 +359,7 @@
 }
 
 
-/* next level */
+																													/* next level */
 .next-btn {
     width: 140px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -425,7 +425,7 @@
 
 
 
-/* Easy level */
+																														/* Easy level */
 .easy-btn {
     width: 140px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -490,7 +490,7 @@
 
 
 
-/* normal level */
+																														/* normal level */
 .normal-btn {
     width: 140px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -557,7 +557,7 @@
 
 
 
-/* hard level */
+																														/* hard level */
 .hard-btn {
     width: 140px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -622,7 +622,7 @@
 
 
 
-/* next level */
+																														/* next level */
 .next-letter-btn {
     width: 200px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -686,7 +686,7 @@
 }
 
 
-/* prev level */
+																														/* prev level */
 .prev-btn {
     width: 200px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -750,7 +750,7 @@
 }
 
 
-/* Chek level */
+																															/* Chek level */
 .chek-btn {
     width: 200px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -814,7 +814,7 @@
 }
 
 
-/* DELETE */
+																																/* DELETE */
 .delete-btn {
     width: 200px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */
@@ -880,7 +880,7 @@
 
 
 
-/* RESTART */
+                                                                                                                               /* RESTART */
 .restart-btn {
     width: 200px; /* Ширина кнопки */
     --height: 46px; /* Высота кнопки */

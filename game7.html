@@ -1,119 +1,20 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="hy">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Շաբաթվա օրեր</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: none;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-
-        .game-container {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .column {
-            width: 45%;
-            padding: 10px;
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .day {
-            display: block;
-            margin: 10px auto;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .day:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-
-        .day.disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        #right-column .day {
-            background-color: #ff9800; /* Оранжевый цвет для дней в правой части */
-        }
-
-        #right-column .day:hover {
-            background-color: #e68900;
-        }
-
-        #result {
-            position: absolute;
-            top: -50px; /* Сообщение сверху */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 18px;
-            font-weight: bold;
-            color: #4CAF50;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        #result.show {
-            opacity: 1;
-        }
-
-        #reset-button {
-            position: absolute;
-            bottom: -70px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        #reset-button.show {
-            opacity: 1;
-        }
-
-        #reset-button:hover {
-            background-color: #45a049;
-        }
+    <link rel="stylesheet" href="buttons.css"> <!-- Подключение ваших стилей -->
+    <link rel="stylesheet" href="game7.css"> <!-- Подключение ваших стилей -->
+    <link rel="stylesheet" href="mobile.css"> <!-- Подключение ваших стилей -->    <style>
+        /* Your existing CSS styles */
     </style>
 </head>
 <body>
     <div class="game-container">
         <!-- Левая колонка с днями недели -->
         <div class="column" id="left-column">
-            <h2>Շաբաթվա օրեր</h2> <!-- Заголовок на армянском -->
+            <h2>Շաբաթվա օրեր</h2>
             <div class="day" data-day="Երկուշաբթի">Երկուշաբթի</div>
             <div class="day" data-day="Երեքշաբթի">Երեքշաբթի</div>
             <div class="day" data-day="Չորեքշաբթի">Չորեքշաբթի</div>
@@ -125,21 +26,27 @@
 
         <!-- Правая колонка для выбранных дней -->
         <div class="column" id="right-column">
-            <h2>Ընտրված օրեր</h2> <!-- Заголовок на армянском -->
+            <h2>Ընտրված օրեր</h2>
         </div>
 
         <!-- Сообщение о результате -->
         <div id="result"></div>
 
-        <!-- Кнопка "Փորձել կրկին" (Попробовать снова) -->
-        <button id="reset-button" onclick="resetGame()">Փորձել կրկին</button>
+        <!-- Кнопка "Փորձել կրկին" -->
+        <button id="reset-button" class="restart-btn" onclick="resetGame()">Փորձել կրկին</button>
     </div>
+
+    <!-- Audio elements for correct and incorrect sounds -->
+    <audio id="correctSound" src="correctSound.mp3"></audio>
+    <audio id="uncorrectSound" src="uncorrectSound.mp3"></audio>
 
     <script>
         const leftColumn = document.getElementById('left-column');
         const rightColumn = document.getElementById('right-column');
         const resultText = document.getElementById('result');
         const resetButton = document.getElementById('reset-button');
+        const correctSound = document.getElementById('correctSound');
+        const uncorrectSound = document.getElementById('uncorrectSound');
 
         // Изначально перемешиваем дни в левой части
         shuffleDays();
@@ -171,9 +78,11 @@
             const userOrder = days.map(day => day.getAttribute('data-day'));
 
             if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
-                showResult('Ճիշտ է! Լավ արեցիր', 'green'); // Сообщение на армянском
+                showResult('Ճիշտ է! Լավ արեցիր', 'green');
+                correctSound.play(); // Play correct sound
             } else {
-                showResult('Փորձիր կրկին', 'red'); // Сообщение на армянском
+                showResult('Փորձիր կրկին', 'red');
+                uncorrectSound.play(); // Play incorrect sound
             }
 
             // Показываем кнопку "Փորձել կրկին"

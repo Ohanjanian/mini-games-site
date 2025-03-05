@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="hy">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Տարվա ամիսներ</title>
+    <title>Игра: Расставь месяцы по порядку</title>
+    <link rel="stylesheet" href="buttons.css">
     <style>
-        /* Все стили остаются без изменений */
         body, html {
             margin: 0;
             padding: 0;
@@ -20,195 +20,218 @@
         }
 
         .game-container {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            margin-top: -10px;
-        }
-
-        .column {
-            width: 45%;
-            padding: 10px;
-            border: 2px solid #4CAF50;
+            width: 500px;
+            height: 600px;
+            background-color: none;
             border-radius: 10px;
-            text-align: center;
-            overflow: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .month {
-            display: block;
-            margin: 5px auto;
-            padding: 8px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            font-size: 14px;
-            width: 90%;
+        .container {
+            width: 95%;
+            height: 300px;
+            border: 2px dashed blue;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            overflow-y: auto;
         }
 
-        .month:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
+        #upper-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 колонки равной ширины */
+            grid-template-rows: repeat(4, 40px); /* 4 строки по 40px высотой */
+            gap: 10px; /* Расстояние между ячейками */
+            align-content: start; /* Начинаем с верха */
         }
 
-        .month.disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
+        #lower-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 колонки равной ширины */
+            grid-template-rows: repeat(4, 40px); /* 4 строки по 40px высотой */
+            gap: 10px; /* Расстояние между ячейками */
+            align-content: start; /* Начинаем с верха */
         }
 
-        #right-column .month {
-            background-color: #ff9800;
+        .glossy-btn {
+            margin: 0 2px;
+            height: 35px; /* Увеличил высоту для удобства на мобильных устройствах */
+            width: 135px; /* Ширина для полных названий */
+            box-sizing: border-box;
+            transition: opacity 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px; /* Увеличил размер шрифта */
         }
 
-        #right-column .month:hover {
-            background-color: #e68900;
+        .glossy-btn.inactive {
+            opacity: 0.5;
+            pointer-events: none;
         }
 
-        #result {
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
+        .level-selector {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .level-selector button {
+            flex: 1;
+            width: 150px; /* Ширина для полных названий */
+            height: 40px; /* Увеличил высоту для удобства на мобильных устройствах */
+            font-size: 14px; /* Увеличил размер шрифта */
+        }
+
+        #message {
             font-size: 18px;
             font-weight: bold;
-            color: #4CAF50;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            margin-top: 10px;
+            text-align: center;
         }
 
-        #result.show {
-            opacity: 1;
-        }
+        @media screen and (max-width: 420px) {
+            .game-container {
+                width: 95%;
+                height: 550px;
+                border-radius: 0;
+                padding: 20px;
+            }
 
-        #reset-button {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            opacity: 100;
-            transition: opacity 0.5s ease;
-        }
+            .container {
+                width: 95%;
+				height: 250px;
+				border: 2px dashed blue;
+				border-radius: 10px;
+				padding: 10px;
+				margin-bottom: 20px;
+				overflow-y: auto;
+            }
 
-        #reset-button.show {
-            opacity: 1;
+            .glossy-btn {
+				height: 30px; /* Увеличил высоту для удобства на мобильных устройствах */
+				width: 90px; /* Ширина для полных названий */
+				box-sizing: border-box;
+				transition: opacity 0.3s ease;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 14px; /* Увеличил размер шрифта */
         }
+            }
 
-        #reset-button:hover {
-            background-color: #45a049;
+            .level-selector {
+                flex-direction: row;
+                width: 300px;
+                gap: 5px; /* Уменьшил расстояние между кнопками */
+            }
+
+            .level-selector button {
+                width: 100%; /* Кнопки занимают всю доступную ширину */
+                height: 40px; /* Высота кнопок */
+                font-size: 12px; /* Уменьшил размер шрифта для мобильных устройств */
+            }
+
+            .upper-container, .lower-container {
+                display: grid;
+				grid-template-columns: repeat(3, 1fr); /* 3 колонки равной ширины */
+				grid-template-rows: repeat(4, 40px); /* 4 строки по 40px высотой */
+				gap: 5px; /* Расстояние между ячейками */
+				align-content: start; /* Начинаем с верха */
+            }
+
+            #message {
+                font-size: 16px; /* Уменьшил размер шрифта для мобильных устройств */
+            }
         }
     </style>
 </head>
 <body>
     <div class="game-container">
-        <div class="column" id="left-column">
-            <div class="month" data-month="Հունվար">Հունվար</div>
-            <div class="month" data-month="Փետրվար">Փետրվար</div>
-            <div class="month" data-month="Մարտ">Մարտ</div>
-            <div class="month" data-month="Ապրիլ">Ապրիլ</div>
-            <div class="month" data-month="Մայիս">Մայիս</div>
-            <div class="month" data-month="Հունիս">Հունիս</div>
-            <div class="month" data-month="Հուլիս">Հուլիս</div>
-            <div class="month" data-month="Օգոստոս">Օգոստոս</div>
-            <div class="month" data-month="Սեպտեմբեր">Սեպտեմբեր</div>
-            <div class="month" data-month="Հոկտեմբեր">Հոկտեմբեր</div>
-            <div class="month" data-month="Նոյեմբեր">Նոյեմբեր</div>
-            <div class="month" data-month="Դեկտեմբեր">Դեկտեմբեր</div>
+        <div class="level-selector">
+            <button class="glossy-btn btn-color1" onclick="startGame('normal')">Обычный порядок</button>
+            <button class="glossy-btn btn-color5" onclick="startGame('reverse')">Обратный порядок</button>
         </div>
-
-        <div class="column" id="right-column">
-        </div>
-
-        <div id="result"></div>
-
-        <button id="reset-button" onclick="resetGame()">Փորձիր կրկին</button>
+        <div id="upper-container" class="container"></div>
+        <div id="lower-container" class="container"></div>
+        <div id="message"></div>
     </div>
 
+    <audio id="correct-sound" src="correct.mp3"></audio>
+    <audio id="uncorrect-sound" src="uncorrect.mp3"></audio>
+
     <script>
-        const leftColumn = document.getElementById('left-column');
-        const rightColumn = document.getElementById('right-column');
-        const resultText = document.getElementById('result');
-        const resetButton = document.getElementById('reset-button');
+        const months = [
+            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ];
 
-        shuffleMonths();
+        let currentOrder = [];
+        let selectedMonths = [];
+        let gameMode = 'normal';
 
-        leftColumn.addEventListener('click', (event) => {
-            if (event.target.classList.contains('month') && !event.target.classList.contains('disabled')) {
-                const month = event.target;
-                month.classList.add('disabled');
-                month.style.cursor = 'not-allowed';
+        const upperContainer = document.getElementById('upper-container');
+        const lowerContainer = document.getElementById('lower-container');
+        const message = document.getElementById('message');
+        const correctSound = document.getElementById('correct-sound');
+        const uncorrectSound = document.getElementById('uncorrect-sound');
 
-                const monthCopy = month.cloneNode(true);
-                monthCopy.classList.remove('disabled');
-                monthCopy.style.cursor = 'default';
-                rightColumn.appendChild(monthCopy);
+        function startGame(mode) {
+            gameMode = mode;
+            currentOrder = mode === 'normal' ? [...months] : [...months].reverse();
+            selectedMonths = [];
+            upperContainer.innerHTML = '';
+            lowerContainer.innerHTML = '';
+            message.textContent = '';
 
-                if (rightColumn.children.length === 12) {
-                    checkOrder();
-                }
+            const shuffledMonths = shuffleArray([...months]);
+            shuffledMonths.forEach(month => {
+                const button = document.createElement('button');
+                button.className = 'glossy-btn btn-color1';
+                button.textContent = month;
+                button.onclick = () => handleClick(month, button);
+                upperContainer.appendChild(button);
+            });
+        }
+
+        function handleClick(month, button) {
+            moveButtonToLowerContainer(button);
+            selectedMonths.push(month);
+            if (selectedMonths.length === months.length) {
+                checkOrder();
             }
-        });
+        }
+
+        function moveButtonToLowerContainer(button) {
+            button.classList.add('inactive');
+            const newButton = button.cloneNode(true);
+            newButton.classList.remove('inactive');
+            newButton.classList.remove('btn-color1');
+            newButton.classList.add('btn-color4');
+            newButton.onclick = null;
+            lowerContainer.appendChild(newButton); /* Кнопки добавляются в порядке сверху вниз */
+        }
 
         function checkOrder() {
-            const months = Array.from(rightColumn.querySelectorAll('.month'));
-            const correctOrder = ['Հունվար', 'Փետրվար', 'Մարտ', 'Ապրիլ', 'Մայիս', 
-                                'Հունիս', 'Հուլիս', 'Օգոստոս', 'Սեպտեմբեր', 
-                                'Հոկտեմբեր', 'Նոյեմբեր', 'Դեկտեմբեր'];
-            const userOrder = months.map(month => month.getAttribute('data-month'));
-
-            if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
-                showResult('Ճիշտ է! Լավ արեցիր!', 'green');
+            const isCorrect = selectedMonths.join(',') === currentOrder.join(',');
+            if (isCorrect) {
+                message.textContent = 'Поздравляем! Вы правильно расставили месяцы!';
+                correctSound.play();
             } else {
-                showResult('Փորձիր կրկին!', 'red');
+                message.textContent = 'Увы, вы ошиблись. Попробуйте ещё раз!';
+                uncorrectSound.play();
             }
-
-            resetButton.classList.add('show');
         }
 
-        function showResult(message, color) {
-            resultText.innerText = message;
-            resultText.style.color = color;
-            resultText.classList.add('show');
-
-            setTimeout(() => {
-                resultText.classList.remove('show');
-            }, 3000);
-        }
-
-        function resetGame() {
-            const months = Array.from(rightColumn.querySelectorAll('.month'));
-            months.forEach(month => month.remove());
-
-            const leftMonths = Array.from(leftColumn.querySelectorAll('.month'));
-            leftMonths.forEach(month => {
-                month.classList.remove('disabled');
-                month.style.cursor = 'pointer';
-            });
-
-            shuffleMonths();
-            resetButton.classList.remove('show');
-        }
-
-        function shuffleMonths() {
-            const months = Array.from(leftColumn.querySelectorAll('.month'));
-            months.sort(() => Math.random() - 0.5);
-            leftColumn.innerHTML = '';
-            months.forEach(month => leftColumn.appendChild(month));
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
     </script>
 </body>
