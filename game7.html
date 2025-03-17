@@ -6,127 +6,148 @@
     <title>Շաբաթվա օրեր</title>
     <link rel="stylesheet" href="buttons.css"> <!-- Подключение ваших стилей -->
     <link rel="stylesheet" href="game7.css"> <!-- Подключение ваших стилей -->
-    <link rel="stylesheet" href="mobile.css"> <!-- Подключение ваших стилей -->    <style>
+    <link rel="stylesheet" href="mobile.css"> <!-- Подключение ваших стилей -->
+    <style>
         /* Your existing CSS styles */
     </style>
 </head>
 <body>
     <div class="game-container">
-        <!-- Левая колонка с днями недели -->
-        <div class="column" id="left-column">
-            <h2>Շաբաթվա օրեր</h2>
-            <div class="day" data-day="Երկուշաբթի">Երկուշաբթի</div>
-            <div class="day" data-day="Երեքշաբթի">Երեքշաբթի</div>
-            <div class="day" data-day="Չորեքշաբթի">Չորեքշաբթի</div>
-            <div class="day" data-day="Հինգշաբթի">Հինգշաբթի</div>
-            <div class="day" data-day="Ուրբաթ">Ուրբաթ</div>
-            <div class="day" data-day="Շաբաթ">Շաբաթ</div>
-            <div class="day" data-day="Կիրակի">Կիրակի</div>
+        <!-- Секция 1: Заголовок -->
+        <div class="section section-1">
+            <h1>Շաբաթվա օրեր</h1>
         </div>
 
-        <!-- Правая колонка для выбранных дней -->
-        <div class="column" id="right-column">
-            <h2>Ընտրված օրեր</h2>
+        <!-- Секция 2: Игра -->
+        <div class="section section-2">
+            <!-- Колонки с днями -->
+            <div class="columns-container">
+                <!-- Левая колонка с невыбранными днями -->
+                <div class="column" id="left-column">
+                    <div class="day" data-day="Երկուշաբթի">Երկուշաբթի</div>
+                    <div class="day" data-day="Երեքշաբթի">Երեքշաբթի</div>
+                    <div class="day" data-day="Չորեքշաբթի">Չորեքշաբթի</div>
+                    <div class="day" data-day="Հինգշաբթի">Հինգշաբթի</div>
+                    <div class="day" data-day="Ուրբաթ">Ուրբաթ</div>
+                    <div class="day" data-day="Շաբաթ">Շաբաթ</div>
+                    <div class="day" data-day="Կիրակի">Կիրակի</div>
+                </div>
+
+                <!-- Правая колонка для выбранных дней -->
+                <div class="column" id="right-column">
+                </div>
+            </div>
         </div>
 
-        <!-- Сообщение о результате -->
-        <div id="result"></div>
+        <!-- Секция 3: Результат -->
+        <div class="section section-3">
+            <div id="result"></div> <!-- Сообщение о результате -->
+        </div>
 
-        <!-- Кнопка "Փորձել կրկին" -->
-        <button id="reset-button" class="restart-btn" onclick="resetGame()">Փորձել կրկին</button>
+        <!-- Секция 4: Кнопка "Փորձել կրկին" -->
+        <div class="section section-4">
+            <button id="reset-button" class="restart-btn" onclick="resetGame()">Փորձել կրկին</button>
+        </div>
     </div>
 
     <!-- Audio elements for correct and incorrect sounds -->
-    <audio id="correctSound" src="correctSound.mp3"></audio>
-    <audio id="uncorrectSound" src="uncorrectSound.mp3"></audio>
+    <audio id="correctSound" src="correct.mp3"></audio>
+    <audio id="uncorrectSound" src="uncorrect.mp3"></audio>
 
-    <script>
-        const leftColumn = document.getElementById('left-column');
-        const rightColumn = document.getElementById('right-column');
-        const resultText = document.getElementById('result');
-        const resetButton = document.getElementById('reset-button');
-        const correctSound = document.getElementById('correctSound');
-        const uncorrectSound = document.getElementById('uncorrectSound');
+    <!-- ... HTML остается тем же до скрипта ... -->
 
-        // Изначально перемешиваем дни в левой части
-        shuffleDays();
+<script>
+    const leftColumn = document.getElementById('left-column');
+    const rightColumn = document.getElementById('right-column');
+    const resultText = document.getElementById('result');
+    const resetButton = document.getElementById('reset-button');
+    const correctSound = document.getElementById('correctSound');
+    const uncorrectSound = document.getElementById('uncorrectSound');
 
-        // Обработчик клика на дни недели
-        leftColumn.addEventListener('click', (event) => {
-            if (event.target.classList.contains('day') && !event.target.classList.contains('disabled')) {
-                const day = event.target;
-                day.classList.add('disabled'); // Делаем кнопку неактивной
-                day.style.cursor = 'not-allowed';
+    // Изначально перемешиваем дни
+    shuffleDays();
 
-                // Создаем копию дня и перемещаем ее в правую колонку
-                const dayCopy = day.cloneNode(true);
-                dayCopy.classList.remove('disabled');
-                dayCopy.style.cursor = 'default';
-                rightColumn.appendChild(dayCopy);
+    // Обработчик клика на дни недели
+    leftColumn.addEventListener('click', (event) => {
+        if (event.target.classList.contains('day') && !event.target.classList.contains('disabled')) {
+            const day = event.target;
+            day.classList.add('disabled');
+            day.style.cursor = 'not-allowed';
 
-                // Проверяем, все ли дни перемещены
-                if (rightColumn.children.length === 8) { // 7 дней + заголовок
-                    checkOrder();
-                }
+            const dayCopy = day.cloneNode(true);
+            dayCopy.classList.remove('disabled');
+            dayCopy.style.cursor = 'default';
+            rightColumn.appendChild(dayCopy);
+
+            // Проверяем порядок только когда все 7 дней перемещены
+            if (rightColumn.children.length === 7) {
+                checkOrder();
             }
+        }
+    });
+
+    // Функция проверки порядка
+    function checkOrder() {
+        const days = Array.from(rightColumn.querySelectorAll('.day'));
+        const correctOrder = ['Երկուշաբթի', 'Երեքշաբթի', 'Չորեքշաբթի', 'Հինգշաբթի', 'Ուրբաթ', 'Շաբաթ', 'Կիրակի'];
+        const userOrder = days.map(day => day.getAttribute('data-day'));
+
+        if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
+            showResult('Ճիշտ է! Լավ արեցիր', '#4CAF50'); // Зеленый цвет
+            playSound(correctSound);
+        } else {
+            showResult('Փորձիր կրկին', 'red');
+            playSound(uncorrectSound);
+        }
+    }
+
+    // Функция воспроизведения звука
+    function playSound(soundElement) {
+        soundElement.currentTime = 0; // Сбрасываем на начало
+        soundElement.play().catch(error => {
+            console.log('Ошибка воспроизведения звука:', error);
+        });
+    }
+
+    // Функция отображения результата
+    function showResult(message, color) {
+        if (!resultText) {
+            console.error("Элемент #result не найден!");
+            return;
+        }
+
+        resultText.innerText = message;
+        resultText.style.color = color;
+        resultText.classList.add('show');
+        
+        // Результат остается видимым до сброса игры
+    }
+
+    // Функция сброса игры
+    function resetGame() {
+        const days = Array.from(rightColumn.querySelectorAll('.day'));
+        days.forEach(day => day.remove());
+
+        const leftDays = Array.from(leftColumn.querySelectorAll('.day'));
+        leftDays.forEach(day => {
+            day.classList.remove('disabled');
+            day.style.cursor = 'pointer';
         });
 
-        // Функция проверки порядка
-        function checkOrder() {
-            const days = Array.from(rightColumn.querySelectorAll('.day'));
-            const correctOrder = ['Երկուշաբթի', 'Երեքշաբթի', 'Չորեքշաբթի', 'Հինգշաբթի', 'Ուրբաթ', 'Շաբաթ', 'Կիրակի'];
-            const userOrder = days.map(day => day.getAttribute('data-day'));
+        // Очищаем результат при сбросе
+        resultText.classList.remove('show');
+        resultText.innerText = '';
 
-            if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
-                showResult('Ճիշտ է! Լավ արեցիր', 'green');
-                correctSound.play(); // Play correct sound
-            } else {
-                showResult('Փորձիր կրկին', 'red');
-                uncorrectSound.play(); // Play incorrect sound
-            }
+        shuffleDays();
+    }
 
-            // Показываем кнопку "Փորձել կրկին"
-            resetButton.classList.add('show');
-        }
-
-        // Функция отображения результата
-        function showResult(message, color) {
-            resultText.innerText = message;
-            resultText.style.color = color;
-            resultText.classList.add('show');
-
-            // Скрываем сообщение через 3 секунды
-            setTimeout(() => {
-                resultText.classList.remove('show');
-            }, 3000);
-        }
-
-        // Функция сброса игры
-        function resetGame() {
-            const days = Array.from(rightColumn.querySelectorAll('.day'));
-            days.forEach(day => day.remove()); // Удаляем дни из правой колонки
-
-            // Восстанавливаем кнопки в левой колонке
-            const leftDays = Array.from(leftColumn.querySelectorAll('.day'));
-            leftDays.forEach(day => {
-                day.classList.remove('disabled');
-                day.style.cursor = 'pointer';
-            });
-
-            // Перемешиваем дни в левой части
-            shuffleDays();
-
-            // Скрываем кнопку "Փորձել կրկին"
-            resetButton.classList.remove('show');
-        }
-
-        // Функция перемешивания дней в левой части
-        function shuffleDays() {
-            const days = Array.from(leftColumn.querySelectorAll('.day'));
-            days.sort(() => Math.random() - 0.5);
-            leftColumn.innerHTML = '<h2>Շաբաթվա օրեր</h2>';
-            days.forEach(day => leftColumn.appendChild(day));
-        }
-    </script>
+    // Функция перемешивания дней
+    function shuffleDays() {
+        const days = Array.from(leftColumn.querySelectorAll('.day'));
+        days.sort(() => Math.random() - 0.5);
+        leftColumn.innerHTML = '';
+        days.forEach(day => leftColumn.appendChild(day));
+    }
+</script>
 </body>
 </html>

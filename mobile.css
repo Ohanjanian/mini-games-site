@@ -244,3 +244,16 @@ h1 {
         inset 0 -2px 4px rgba(0, 0, 0, 0.3); /* Внутренняя тень (тёмная) */
     margin-bottom: 0px; /* Отступ снизу: 0 пикселей */
 }
+
+.question {
+            font-size: 36px;
+			padding: 10px;
+            margin-bottom: 0px;
+            font-weight: bold;
+            color: #333;
+			
+.h1 {
+    font-size: var(--header-font-size, 12px); /* Размер шрифта заголовка */
+    color: white; /* Цвет текста */
+    margin: 0; /* Убираем отступы */
+}
