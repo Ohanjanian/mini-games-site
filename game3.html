@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 1: Learn Letters!</title>
+    <title>Learn Letters</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="game1.css"> <!-- Подключение CSS -->
     <link rel="stylesheet" href="buttons.css"> <!-- Подключение CSS -->
@@ -11,25 +11,38 @@
 </head>
 <body>
     <div class="game-container">
-        <!-- Название игры -->
-        <h1>Learn Letters</h1>
+        <!-- Секция 1: Заголовок -->
+        <div class="section section-1">
+            <h1>Learn Letters</h1>
+        </div>
 
-        <!-- Буква -->
-        <div class="letter" id="letter"></div>
+        <!-- Секция 2: Буква -->
+        <div class="section section-2">
+            <div class="letter" id="letter"></div>
+        </div>
 
-        <!-- Слово -->
-        <div class="word" id="word"></div>
+        <!-- Секция 3: Слово -->
+        <div class="section section-3">
+            <div class="word" id="word"></div>
+        </div>
 
-        <!-- Кнопка "Сначала" -->
-        <button class="restart-btn" onclick="restartGame()" aria-label="Restart">Restart</button>        
-        <!-- Кнопка "Следующая буква" -->
-        <button class="next-letter-btn" onclick="nextLetter()" aria-label="Next Letter">Next Letter</button>
+        <!-- Секция 4: Кнопка "Начать заново" -->
+        <div class="section section-4">
+            <button class="restart-btn" onclick="restartGame()" aria-label="Следующая буква">Restart</button>
+        </div>
 
-        <!-- Кнопки сложности -->
-        <div class="difficulty-buttons">
-            <button class="easy-btn" onclick="setDifficulty('easy')">Lowercase</button>
-            <button class="normal-btn" onclick="setDifficulty('medium')">Capital</button>
-            <button class="hard-btn" onclick="setDifficulty('hard')">Word</button>
+        <!-- Секция 5: Кнопка "Следующая буква" -->
+        <div class="section section-5">
+            <button class="next-letter-btn" onclick="nextLetter()" aria-label="Следующая буква">Next Letter</button>
+        </div>
+
+        <!-- Секция 6: Кнопки сложности -->
+        <div class="section section-6">
+            <div class="difficulty-buttons">
+                <button class="easy-btn" onclick="setDifficulty('easy')">Lowercase</button>
+                <button class="normal-btn" onclick="setDifficulty('medium')">Capital</button>
+                <button class="hard-btn" onclick="setDifficulty('hard')">Word</button>
+            </div>
         </div>
     </div>
 

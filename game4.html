@@ -5,46 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Գումարում և Հանում</title>
     <link rel="stylesheet" href="buttons.css">
-	<link rel="stylesheet" href="game4.css">
-	<link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="game4.css">
+    <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>Գումարում և Հանում</h1>
-
-        <div class="question" id="question">
-            <span id="questionText"></span> = <input type="number" id="answer" placeholder="?" min="0">
+        <!-- Секция 1: Заголовок -->
+        <div class="section section-1">
+            <h1>Գումարում և Հանում</h1>
         </div>
 
-        <!-- Кнопки цифр -->
-        <div class="button-grid">
-            <button class="square-btn btn-color1" onclick="addToAnswer('1')">1</button>
-            <button class="square-btn btn-color2" onclick="addToAnswer('2')">2</button>
-            <button class="square-btn btn-color3" onclick="addToAnswer('3')">3</button>
-            <button class="square-btn btn-color4" onclick="addToAnswer('4')">4</button>
-            <button class="square-btn btn-color5" onclick="addToAnswer('5')">5</button>
-            <button class="square-btn btn-color6" onclick="addToAnswer('6')">6</button>
-            <button class="square-btn btn-color7" onclick="addToAnswer('7')">7</button>
-            <button class="square-btn btn-color8" onclick="addToAnswer('8')">8</button>
-            <button class="square-btn btn-color9" onclick="addToAnswer('9')">9</button>
-            <button class="square-btn btn-color10" onclick="addToAnswer('0')">0</button>
+        <!-- Секция 2: Вопрос -->
+        <div class="section section-2">
+            <div class="question" id="question">
+                <span id="questionText"></span>
+            </div>
         </div>
 
-        <!-- Кнопки "Проверить" и "Удалить" -->
-        <div class="action-buttons">
-            <button id="checkButton" class="chek-btn btn-check" onclick="checkAnswer()">Ստուգել</button>
-            <button id="deleteButton" class="delete-btn btn-delete" onclick="clearAnswer()">🗑️</button>
+        <!-- Секция 3: Поле ввода ответа -->
+        <div class="section section-3">
+            <input type="number" id="answer" placeholder="Մուտքագրեք պատասխանը" min="0">
         </div>
 
-        <div id="result"></div>
-        <div id="score">Միավորներ: 0</div>
-        <div id="stats">Ճիշտ: 0 | Սխալ: 0</div>
+        <!-- Секция 4: Кнопки цифр -->
+        <div class="section section-4">
+            <div class="button-grid">
+                <button class="square-btn btn-color1" onclick="addToAnswer('1')">1</button>
+                <button class="square-btn btn-color2" onclick="addToAnswer('2')">2</button>
+                <button class="square-btn btn-color3" onclick="addToAnswer('3')">3</button>
+                <button class="square-btn btn-color4" onclick="addToAnswer('4')">4</button>
+                <button class="square-btn btn-color5" onclick="addToAnswer('5')">5</button>
+                <button class="square-btn btn-color6" onclick="addToAnswer('6')">6</button>
+                <button class="square-btn btn-color7" onclick="addToAnswer('7')">7</button>
+                <button class="square-btn btn-color8" onclick="addToAnswer('8')">8</button>
+                <button class="square-btn btn-color9" onclick="addToAnswer('9')">9</button>
+                <button class="square-btn btn-color10" onclick="addToAnswer('0')">0</button>
+            </div>
+        </div>
 
-        <!-- Кнопки уровня сложности -->
-        <div class="difficulty-buttons">
-            <button class="easy-btn btn-easy" onclick="setDifficulty('easy')">Հեշտ</button>
-            <button class="normal-btn btn-medium" onclick="setDifficulty('medium')">Միջին</button>
-            <button class="hard-btn btn-hard" onclick="setDifficulty('hard')">Դժվար</button>
+        <!-- Секция 5: Кнопки "Проверить" и "Удалить" -->
+        <div class="section section-5">
+            <div class="action-buttons">
+                <button id="checkButton" class="chek-btn btn-check" onclick="checkAnswer()">Ստուգել</button>
+                <button id="deleteButton" class="delete-btn btn-delete" onclick="clearAnswer()">🗑️</button>
+            </div>
+        </div>
+
+        <!-- Секция 6: Результат -->
+        <div class="section section-6">
+            <div id="result"></div>
+        </div>
+
+        <!-- Секция 7: Счет и статистика -->
+        <div class="section section-7">
+            <div id="score">Միավորներ: 0</div>
+            <div id="stats">Ճիշտ: 0 | Սխալ: 0</div>
+        </div>
+
+        <!-- Секция 8: Кнопки уровня сложности -->
+        <div class="section section-8">
+            <div class="difficulty-buttons">
+                <button class="easy-btn btn-easy" onclick="setDifficulty('easy')">Հեշտ</button>
+                <button class="normal-btn btn-medium" onclick="setDifficulty('medium')">Միջին</button>
+                <button class="hard-btn btn-hard" onclick="setDifficulty('hard')">Դժվար</button>
+            </div>
         </div>
     </div>
 

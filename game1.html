@@ -11,109 +11,122 @@
 </head>
 <body>
     <div class="game-container">
-        <!-- Название игры -->
-        <h1>Учим буквы!</h1>
+        <!-- Секция 1: Заголовок -->
+        <div class="section section-1">
+            <h1>Учим буквы!</h1>
+        </div>
 
-        <!-- Буква -->
-        <div class="letter" id="letter"></div>
+        <!-- Секция 2: Буква -->
+        <div class="section section-2">
+            <div class="letter" id="letter"></div>
+        </div>
 
-        <!-- Слово -->
-        <div class="word" id="word"></div>
+        <!-- Секция 3: Слово -->
+        <div class="section section-3">
+            <div class="word" id="word"></div>
+        </div>
 
-        <!-- Кнопка "Сначала" -->
-		<button class="restart-btn" onclick="restartGame()" aria-label="Следующая буква">Начать Заново</button>		
-		<!-- Кнопка "Следующая буква" -->
-        <button class="next-letter-btn" onclick="nextLetter()" aria-label="Следующая буква">Следующая буква</button>
+        <!-- Секция 4: Кнопка "Начать заново" -->
+        <div class="section section-4">
+            <button class="restart-btn" onclick="restartGame()" aria-label="Следующая буква">Начать Заново</button>
+        </div>
 
-        <!-- Кнопки сложности -->
-        <div class="difficulty-buttons">
-            <button class="easy-btn" onclick="setDifficulty('easy')">Строчная</button>
-            <button class="normal-btn" onclick="setDifficulty('medium')">Заглавная</button>
-            <button class="hard-btn" onclick="setDifficulty('hard')">Слово</button>
+        <!-- Секция 5: Кнопка "Следующая буква" -->
+        <div class="section section-5">
+            <button class="next-letter-btn" onclick="nextLetter()" aria-label="Следующая буква">Следующая буква</button>
+        </div>
+
+        <!-- Секция 6: Кнопки сложности -->
+        <div class="section section-6">
+            <div class="difficulty-buttons">
+                <button class="easy-btn" onclick="setDifficulty('easy')">Строчная</button>
+                <button class="normal-btn" onclick="setDifficulty('medium')">Заглавная</button>
+                <button class="hard-btn" onclick="setDifficulty('hard')">Слово</button>
+            </div>
         </div>
     </div>
 
     <script>
-    const letters = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
-    const words = {
-        'А': 'Аист', 'Б': 'Бабочка', 'В': 'Воробей', 'Г': 'Гриб', 'Д': 'Дом',
-        'Е': 'Енот', 'Ё': 'Ёлка', 'Ж': 'Жираф', 'З': 'Зонт', 'И': 'Игрушка',
-        'Й': 'Йогурт', 'К': 'Кот', 'Л': 'Лиса', 'М': 'Медведь', 'Н': 'Носорог',
-        'О': 'Ослик', 'П': 'Пингвин', 'Р': 'Ракета', 'С': 'Солнце', 'Т': 'Тигр',
-        'У': 'Улитка', 'Ф': 'Флаг', 'Х': 'Хлеб', 'Ц': 'Цветок', 'Ч': 'Чайник',
-        'Ш': 'Шар', 'Щ': 'Щенок', 'Ъ': 'Подъезд', 'Ы': 'Мышь', 'Ь': 'Деньги',
-        'Э': 'Экран', 'Ю': 'Юла', 'Я': 'Яблоко'
-    };
+        const letters = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+        const words = {
+            'А': 'Аист', 'Б': 'Бабочка', 'В': 'Воробей', 'Г': 'Гриб', 'Д': 'Дом',
+            'Е': 'Енот', 'Ё': 'Ёлка', 'Ж': 'Жираф', 'З': 'Зонт', 'И': 'Игрушка',
+            'Й': 'Йогурт', 'К': 'Кот', 'Л': 'Лиса', 'М': 'Медведь', 'Н': 'Носорог',
+            'О': 'Ослик', 'П': 'Пингвин', 'Р': 'Ракета', 'С': 'Солнце', 'Т': 'Тигр',
+            'У': 'Улитка', 'Ф': 'Флаг', 'Х': 'Хлеб', 'Ц': 'Цветок', 'Ч': 'Чайник',
+            'Ш': 'Шар', 'Щ': 'Щенок', 'Ъ': 'Подъезд', 'Ы': 'Мышь', 'Ь': 'Деньги',
+            'Э': 'Экран', 'Ю': 'Юла', 'Я': 'Яблоко'
+        };
 
-    let remainingLetters = [...letters];
-    let currentLetter;
-    let difficulty = 'easy';
+        let remainingLetters = [...letters];
+        let currentLetter;
+        let difficulty = 'easy';
 
-    // Функция для установки уровня сложности
-    function setDifficulty(level) {
-        difficulty = level;
-        remainingLetters = [...letters]; // Сбрасываем оставшиеся буквы
-        document.getElementById('word').classList.remove('difficulty-hard');
-        nextLetter(); // Запускаем новую букву
-    }
-
-    // Функция для перехода к следующей букве
-    function nextLetter() {
-        const letterElement = document.getElementById('letter');
-        const wordElement = document.getElementById('word');
-
-        if (remainingLetters.length === 0) {
-            // Если буквы закончились, показываем сообщение о завершении
-            letterElement.textContent = "ПОЗДРАВЛЯЕМ!";
-            letterElement.classList.add('congrats-message');
-            wordElement.textContent = '';
-
-            // Создаем кнопку "Начать заново"
-            const restartButton = document.createElement('button');
-            restartButton.textContent = "Начать заново";
-            restartButton.classList.add('restart-btn', 'custom-style');
-            restartButton.onclick = restartGame; // Привязываем функцию перезапуска
-            wordElement.appendChild(restartButton);
-            return;
+        // Функция для установки уровня сложности
+        function setDifficulty(level) {
+            difficulty = level;
+            remainingLetters = [...letters]; // Сбрасываем оставшиеся буквы
+            document.getElementById('word').classList.remove('difficulty-hard');
+            nextLetter(); // Запускаем новую букву
         }
 
-        // Выбираем случайную букву из оставшихся
-        const randomIndex = Math.floor(Math.random() * remainingLetters.length);
-        currentLetter = remainingLetters[randomIndex];
-        remainingLetters.splice(randomIndex, 1);
+        // Функция для перехода к следующей букве
+        function nextLetter() {
+            const letterElement = document.getElementById('letter');
+            const wordElement = document.getElementById('word');
 
-        // Отображаем букву и слово в зависимости от уровня сложности
-        if (difficulty === 'easy') {
-            letterElement.textContent = currentLetter.toLowerCase();
-            wordElement.textContent = '';
-        } else if (difficulty === 'medium') {
-            letterElement.textContent = currentLetter;
-            wordElement.textContent = '';
-        } else if (difficulty === 'hard') {
-            letterElement.textContent = currentLetter;
-            wordElement.textContent = words[currentLetter];
-            wordElement.classList.add('difficulty-hard');
+            if (remainingLetters.length === 0) {
+                // Если буквы закончились, показываем сообщение о завершении
+                letterElement.textContent = "ПОЗДРАВЛЯЕМ!";
+                letterElement.classList.add('congrats-message');
+                wordElement.textContent = '';
+
+                // Создаем кнопку "Начать заново"
+                const restartButton = document.createElement('button');
+                restartButton.textContent = "Начать заново";
+                restartButton.classList.add('restart-btn', 'custom-style');
+                restartButton.onclick = restartGame; // Привязываем функцию перезапуска
+                wordElement.appendChild(restartButton);
+                return;
+            }
+
+            // Выбираем случайную букву из оставшихся
+            const randomIndex = Math.floor(Math.random() * remainingLetters.length);
+            currentLetter = remainingLetters[randomIndex];
+            remainingLetters.splice(randomIndex, 1);
+
+            // Отображаем букву и слово в зависимости от уровня сложности
+            if (difficulty === 'easy') {
+                letterElement.textContent = currentLetter.toLowerCase();
+                wordElement.textContent = '';
+            } else if (difficulty === 'medium') {
+                letterElement.textContent = currentLetter;
+                wordElement.textContent = '';
+            } else if (difficulty === 'hard') {
+                letterElement.textContent = currentLetter;
+                wordElement.textContent = words[currentLetter];
+                wordElement.classList.add('difficulty-hard');
+            }
         }
-    }
 
-    // Функция для перезапуска игры
-    function restartGame() {
-        remainingLetters = [...letters]; // Сбрасываем оставшиеся буквы
-        document.getElementById('letter').classList.remove('congrats-message'); // Убираем сообщение о завершении
-        document.getElementById('word').textContent = ''; // Очищаем слово
-        nextLetter(); // Запускаем новую игру
-    }
-
-    // Обработчик сообщений (если нужно взаимодействие с другими окнами)
-    window.addEventListener('message', (event) => {
-        if (event.data.type === 'setDifficulty') {
-            setDifficulty(event.data.difficulty);
+        // Функция для перезапуска игры
+        function restartGame() {
+            remainingLetters = [...letters]; // Сбрасываем оставшиеся буквы
+            document.getElementById('letter').classList.remove('congrats-message'); // Убираем сообщение о завершении
+            document.getElementById('word').textContent = ''; // Очищаем слово
+            nextLetter(); // Запускаем новую игру
         }
-    });
 
-    // Инициализация игры
-    setDifficulty('easy'); // Устанавливаем начальный уровень сложности
-    nextLetter(); // Запускаем первую букву
-</script>
+        // Обработчик сообщений (если нужно взаимодействие с другими окнами)
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'setDifficulty') {
+                setDifficulty(event.data.difficulty);
+            }
+        });
+
+        // Инициализация игры
+        setDifficulty('easy'); // Устанавливаем начальный уровень сложности
+        nextLetter(); // Запускаем первую букву
+    </script>
 </body>
 </html>

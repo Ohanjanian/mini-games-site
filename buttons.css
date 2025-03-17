@@ -371,14 +371,12 @@
 	background: linear-gradient(to bottom, #ffcc00, #ff6f61);
     font-size: 14px; /* Размер шрифта: 14 пикселей */
     font-weight: bold; /* Жирный шрифт */
-    position: relative; /* Относительное позиционирование для псевдоэлементов */
     overflow: hidden; /* Скрываем содержимое, выходящее за границы кнопки */
     transition: transform 0.1s ease, box-shadow 0.1s ease; /* Плавные анимации для transform и box-shadow */
     box-shadow: 
         0 4px 6px rgba(0, 0, 0, 0.2), /* Тень вокруг кнопки */
         inset 0 2px 4px rgba(255, 255, 255, 0.6), /* Внутренняя тень (светлая) */
         inset 0 -2px 4px rgba(0, 0, 0, 0.3); /* Внутренняя тень (тёмная) */
-    margin-bottom: 0px; /* Отступ снизу: 0 пикселей */
 }
 
 /* Псевдоэлемент для создания "глянцевого" эффекта */

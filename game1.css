@@ -14,49 +14,69 @@ body, html {
 
 .game-container {
     text-align: center;
-    /*background: yellow;*/
     padding: 0;
     border-radius: 0;
     box-shadow: none;
     width: 500px;
-    height: 650px;
+    height: 100%; /* Занимает всю высоту экрана */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Вертикальное распределение */
+    justify-content: flex-start; /* Начинаем с верхнего края */
+    align-items: center;
+}
+
+/* Стили для секций */
+.section {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    color: white; /* Белый текст для контраста */
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+}
+
+.section-1 {
+    height: var(--section-1-height, 10%); /* Высота секции 1 — 10% */
+    display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 h1 {
-    color: white;
-    font-size: 24px;
-    margin-bottom: 20px;
-	position: absolute; /* Фиксируем позицию */
-	transform: translate(0%, -900%);
-
-
+    font-size: var(--header-font-size, 24px); /* Размер шрифта заголовка */
+    color: white; /* Цвет текста */
+    margin: 0; /* Убираем отступы */
 }
 
+:root {
+    --header-font-size: 30px; /* Размер шрифта заголовка — 30px */
+}
+
+
+/* Высота каждой секции через CSS-переменные */
+.section-1 { height: var(--section-1-height, 10%); background-color: none; } /* Красный */
+.section-2 { height: var(--section-2-height, 30%); background-color: none; } /* Оранжевый */
+.section-3 { height: var(--section-3-height, 30%); background-color: none; } /* Золотой */
+.section-4 { height: var(--section-4-height, 10%); background-color: none; } /* Зеленый */
+.section-5 { height: var(--section-5-height, 10%); background-color: none; } /* Синий */
+.section-6 { height: var(--section-6-height, 10%); background-color: none; } /* Фиолетовый */
+
+/* Стили для буквы */
 .letter {
     font-size: 150px;
     font-weight: bold;
-    margin: 20px 0;
-	position: absolute; /* Фиксируем позицию */
-	transform: translate(0%, -50%);
     color: orange;
     text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4); /* Тень для читаемости */
 }
 
+/* Стили для слова */
 .word {
     font-size: 100px;
     font-weight: bold;
-    margin: 10px 0;
     color: #0072ff;
-	position: absolute; /* Фиксируем позицию */
-	transform: translate(0%, 60%);
     max-height: 200px;
     overflow: hidden;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень для читаемости */
@@ -70,7 +90,6 @@ h1 {
 .next-letter-btn {
     width: 200px;
     height: 46px;
-    padding: 10px 20px;
     color: white;
     background: linear-gradient(to bottom, #ffcc00, #ff6f61);
     border: none;
@@ -78,8 +97,6 @@ h1 {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    position: absolute; /* Фиксируем позицию */
-    bottom: 76px; /* 20px выше кнопок сложности (46px + 10px зазор) */
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-shadow: 
         0 4px 6px rgba(0, 0, 0, 0.2),
@@ -99,11 +116,20 @@ h1 {
 
 /* Стили для кнопки "Начать заново" */
 .restart-btn {
-    margin-bottom: 20px;
-    position: absolute; /* Фиксируем позицию */
-    transform: translateX(-50%);
-	bottom: 115px; /* Позиция выше кнопок сложности */
-
+    margin-bottom: 0px;
+    padding: 10px 20px;
+    color: white;
+    background: linear-gradient(to bottom, #ffcc00, #ff6f61);
+    border: none;
+    border-radius: 21px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.6),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Анимация появления */
@@ -120,10 +146,6 @@ h1 {
 
 /* Кнопки сложности */
 .difficulty-buttons {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     gap: 10px;
 }
@@ -131,6 +153,17 @@ h1 {
 .easy-btn, .normal-btn, .hard-btn {
     width: 140px;
     height: 46px;
-    position: relative;
-    
+    padding: 10px 20px;
+    color: white;
+    background: linear-gradient(to bottom, #4CAF50, #45a049);
+    border: none;
+    border-radius: 21px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.6),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
 }

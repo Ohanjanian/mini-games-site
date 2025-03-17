@@ -1,4 +1,5 @@
-body, html {
+/* Основные стили для вертикального разделения */
+        body, html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -36,8 +37,7 @@ body, html {
             align-items: center; /* Центрирование по вертикали */
         }
 		
-		
-	.section-1 {
+		.section-1 {
     height: var(--section-1-height, 10%); /* Высота секции 1 — 10% */
     display: flex;
     justify-content: center;
@@ -54,28 +54,37 @@ h1 {
     --header-font-size: 30px; /* Размер шрифта заголовка — 30px */
 }
 
-/* Высота каждой секции через CSS-переменные */
-.section-1 { height: var(--section-1-height, 10%); background-color: none } /* Красный */
-.section-2 { height: var(--section-2-height, 15%); background-color: none; } /* Оранжевый */
-.section-3 { height: var(--section-3-height, 10%); background-color: none; } /* Золотой */
-.section-4 { height: var(--section-4-height, 20%); background-color: none; } /* Зеленый */
-.section-5 { height: var(--section-5-height, 10%); background-color: none; } /* Синий */
-.section-6 { height: var(--section-6-height, 10%); background-color: none; } /* Фиолетовый */
-.section-7 { height: var(--section-7-height, 15%); background-color: none; } /* Розовый */
-.section-8 { height: var(--section-8-height, 10%); background-color: none; } /* Бирюзовый */
+        /* Высота каждой секции через CSS-переменные */
+        .section-1 { height: var(--section-1-height, 10%); background-color: none; } /* Красный */
+        .section-2 { height: var(--section-2-height, 10%); background-color: none; } /* Оранжевый */
+        .section-3 { height: var(--section-3-height, 10%); background-color: none; } /* Золотой */
+        .section-4 { height: var(--section-4-height, 10%); background-color: none; } /* Зеленый */
+        .section-5 { height: var(--section-5-height, 10%); background-color: none; } /* Синий */
+        .section-6 { height: var(--section-6-height, 10%); background-color: none; } /* Фиолетовый */
+        .section-7 { height: var(--section-7-height, 10%); background-color: none; } /* Розовый */
+        .section-8 { height: var(--section-8-height, 10%); background-color: none; } /* Бирюзовый */
+		
+:root {
+    --section-1-height: 10%; /* Заголовок */
+    --section-2-height: 30%; /* Вопрос */
+    --section-3-height: 10%; /* Поле ввода */
+    --section-4-height: 20%; /* Кнопки цифр */
+    --section-5-height: 10%; /* Кнопки действий */
+    --section-6-height: 5%; /* Результат */
+    --section-7-height: 5%; /* Счет и статистика */
+    --section-8-height: 10%; /* Кнопки сложности */
+}
 
-/* Стили для вопроса */
-.question {
-            font-size: 36px;
+        .question {
+            font-size: 18px;
 			padding: 10px;
             margin-bottom: 0px;
             font-weight: bold;
             color: #333;
         }
 
-/* Стили для поля ввода */
-input[type="number"] {
-    padding: 10px;
+        .answer-input {
+            padding: 10px;
             font-size: 18px;
             border: 2px solid #ff6b81;
             border-radius: 10px;
@@ -85,69 +94,60 @@ input[type="number"] {
             width: 80%;
             box-sizing: border-box;
             height: 40px;
-}
+        }
 
-/* Стили для кнопок цифр */
-.button-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-bottom: 0px;
-}
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 0px;
+        }
 
-.square-btn {
-    padding: 10px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .action-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0px;
+            width: 100%;
+            max-width: 500px;
+        }
 
-/* Стили для кнопок действий */
-.action-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 0px;
-}
-
-
-
-.chek-btn {
+        .chek-btn {
             width: 230px;
             height: 50px;
             border-radius: 25px;
             font-size: 18px;
         }
 
-.delete-btn {
+        .delete-btn {
             height: 50px;
             width: 50px;
             border-radius: 10px;
             font-size: 18px;
         }
 
-#result {
+        #result {
             font-size: 18px;
             font-weight: bold;
             color: #333;
             min-height: 24px;
         }
 
-#score {
+        #score {
             margin: 10px;
             font-size: 18px;
             font-weight: bold;
             color: #333;
         }
 
-#stats {
+        #stats {
             margin: 10px;
             font-size: 16px;
             color: #666;
         }
 
-/* Стили для кнопок сложности */
         .difficulty-buttons {
             display: flex;
             gap: 10px;

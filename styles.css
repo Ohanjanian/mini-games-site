@@ -124,7 +124,7 @@ body {
         padding: 0; /* Убираем отступы */
         flex-direction: column; /* Блоки становятся вертикальными */
         min-height: calc(100vh - 100px); /* Учитываем высоту статус-баров */
-        margin: 50px auto; /* Отступы для статус-баров */
+        margin: 25px auto; /* Отступы для статус-баров */
     }
 
     .box.center {
